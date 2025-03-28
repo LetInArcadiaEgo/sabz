@@ -1,0 +1,22 @@
+.pageContainer {
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.listingsContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+@media (max-width: 768px) {
+  .pageContainer {
+    padding: 1rem;
+  }
+  
+  .listingsContainer {
+    grid-template-columns: 1fr;
+  }
+} 

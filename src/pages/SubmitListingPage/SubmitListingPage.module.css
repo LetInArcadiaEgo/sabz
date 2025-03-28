@@ -1,0 +1,10 @@
+.submitListingPage {
+  padding: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.submitListingPage h1 {
+  margin-bottom: 2rem;
+  color: #2d3748;
+} 
