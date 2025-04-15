@@ -20,6 +20,7 @@
   width: auto;
   object-fit: contain;
   margin-top: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 .tagline {
@@ -29,6 +30,5 @@
   font-style: italic;
   font-size: 1.7rem;
   text-align: left;
-  margin-top: 0rem;
   line-height: 1;
 } 

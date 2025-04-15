@@ -4,6 +4,17 @@
   margin: 2px auto;
   padding: 0 20px;
   box-sizing: border-box;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  transition: all 0.3s ease;
+}
+
+.searchContainer:not(:hover) {
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 .searchBar {
@@ -25,9 +36,8 @@
 
 .searchIcon {
   color: #000;
-  font-size: 10px;
-  margin-right: 0px;
-  transform: scale(0.8);
+  font-size: 16px;
+  margin-right: -0.5rem;
 }
 
 .searchInput {
@@ -44,14 +54,10 @@
   color: #000;
 }
 
-
-
 @media (max-width: 600px) {
   .searchContainer {
     padding: 0 10px;
   }
-  
- 
   
   .searchIcon,
   .filterButton {
