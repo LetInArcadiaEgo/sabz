@@ -1,7 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './ListingCard.module.css';
-import { FaBed, FaBath, FaRulerCombined } from 'react-icons/fa'; // FontAwesome icons
 
 function ListingCard({ listing }) {
     const navigate = useNavigate();
@@ -21,15 +20,11 @@ function ListingCard({ listing }) {
             </div>
             <div className={styles.content}>
                 <h2 className={styles.title}>{listing.title}</h2>
-                <div className={styles.price}>PKR {listing.price.toLocaleString()}</div>
+                <div className={styles.locationDetails}>{listing.locationDetails}</div>
                 <div className={styles.details}>
-                    <div><FaBed /> {listing.bedrooms}</div>
-                    <div><FaBath /> {listing.bathrooms}</div>
-                    <div><FaRulerCombined /> {listing.squareFootage}</div>
+                    {listing.squareFootage} // {listing.bedrooms} Bedrooms // {listing.bathrooms} Bathrooms
                 </div>
-                {/* <div className={styles.location}>
-                    <span>Property Type: {listing.propertyType}</span>
-                </div> */}
+                <div className={styles.price}>PKR {(listing.price / 10000000).toFixed(1)} Crore</div>
             </div>
         </div>
     )

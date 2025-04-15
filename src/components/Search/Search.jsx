@@ -10,15 +10,12 @@ const Search = () => {
         <FiSearch className={styles.searchIcon} />
         <input
           type="text"
-          placeholder="Search for properties..."
+          placeholder="Start your search"
           className={styles.searchInput}
         />
-        <button className={styles.filterButton}>
-          <IoOptionsOutline />
-        </button>
       </div>
     </div>
   );
 };
 
-export default Search; 
+export default Search;
