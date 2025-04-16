@@ -1,4 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+/* Apply Inter to everything */
+* {
+  font-family: 'Inter', sans-serif;
+}
 
 body {
     margin: 0;
@@ -13,5 +18,9 @@ body {
 code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
       monospace;
+}
+
+.app {
+    text-align: center;
 }
   

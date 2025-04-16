@@ -26,7 +26,7 @@
 .tagline {
   font-family: 'DM Sans', sans-serif; /* Apply DM Sans font */
   color: #00b550; /* Updated green color */
-  font-weight: bold;
+  font-weight: 900;
   font-style: italic;
   font-size: 1.7rem;
   text-align: left;
