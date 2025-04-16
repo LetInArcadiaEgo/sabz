@@ -1,0 +1,21 @@
+.mainFeatures {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+  margin-left: 2px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #eee;
+}
+
+.feature {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #666;
+  font-size: 13px;
+}
+
+.feature svg {
+  font-size: 16px;
+  color: #666;
+} 

@@ -1,21 +1,21 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import ListingsPage from './pages/ListingsPage/ListingsPage';
-import DetailPage from './pages/DetailPage/DetailPage';
-import Navbar from './components/Navbar/Navbar';
-import Footer from './components/Footer/Footer';
+import HomePage from './pages/home/HomePage';
+import ListingPage from './pages/listing/ListingPage';
+import Navbar from './components/layout/Navbar/Navbar';
+import Footer from './components/layout/Footer/Footer';
 
 const AppContent = () => {
   const location = useLocation();
-  const isDetailPage = location.pathname.includes('/property/');
+  const isListingPage = location.pathname.includes('/property/');
 
   return (
     <div className="app">
-      {!isDetailPage && <Navbar />}
+      {!isListingPage && <Navbar />}
       <Routes>
-        <Route path="/" element={<ListingsPage />} />
-        <Route path="/listings" element={<ListingsPage />} />
-        <Route path="/property/:id" element={<DetailPage />} />
+        <Route path="/" element={<HomePage />} />
+        <Route path="/listings" element={<HomePage />} />
+        <Route path="/property/:id" element={<ListingPage />} />
       </Routes>
       <Footer />
     </div>

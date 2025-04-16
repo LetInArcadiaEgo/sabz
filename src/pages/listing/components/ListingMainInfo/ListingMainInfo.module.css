@@ -1,0 +1,29 @@
+.mainInfo {
+  margin-bottom: 16px;
+}
+
+.price {
+  font-size: 24px;
+  font-weight: 700;
+  color: #000;
+  margin: 0 0 8px 0;
+}
+
+.mainInfo h1 {
+  font-size: 14px;
+  margin: 0 0 4px 0;
+  color: #666;
+  font-weight: 400;
+}
+
+.location {
+  margin: 0 0 4px 0;
+}
+
+.location p {
+  font-size: 14px;
+  color: #666;
+  margin: 0;
+  font-weight: 400;
+  line-height: 1.4;
+} 

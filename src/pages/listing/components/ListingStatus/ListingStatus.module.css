@@ -1,0 +1,22 @@
+.statusContainer {
+  margin-bottom: 12px;
+}
+
+.activeStatus {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background-color: #f0f0f0;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 700;
+  color: #000;
+}
+
+.activeDot {
+  width: 6px;
+  height: 6px;
+  background-color: #2fc077;
+  border-radius: 50%;
+} 

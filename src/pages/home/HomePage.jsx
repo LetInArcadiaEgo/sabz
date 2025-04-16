@@ -2,9 +2,9 @@ import React from 'react';
 import { listingsData } from '../../listings';
 import ListingCard from '../../components/ListingCard/ListingCard';
 import Search from '../../components/Search/Search';
-import styles from './ListingsPage.module.css';
+import styles from './HomePage.module.css';
 
-function ListingsPage() {
+function HomePage() {
     return (
         <div className={styles.pageContainer}>
             <Search />
@@ -20,4 +20,4 @@ function ListingsPage() {
     );
 }
 
-export default ListingsPage; 
+export default HomePage; 

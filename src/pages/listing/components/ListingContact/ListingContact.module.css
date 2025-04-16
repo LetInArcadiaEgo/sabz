@@ -1,0 +1,67 @@
+.contactContainer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  display: flex;
+  background-color: white;
+  padding: 12px 16px;
+  gap: 12px;
+  border-top: 1px solid #eee;
+  z-index: 1000;
+  justify-content: center;
+  max-width: 600px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.callButton,
+.whatsappButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 0 24px;
+  border-radius: 8px;
+  font-size: 1.4rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  height: 60px;
+}
+
+.callButton:hover,
+.whatsappButton:hover {
+  opacity: 0.95;
+  transform: translateY(-1px);
+}
+
+.callButton {
+  background-color: #fff;
+  border: 1px solid #25D366;
+  color: #25D366;
+  min-width: 100px;
+}
+
+.whatsappButton {
+  background-color: #25D366;
+  border: 1px solid #25D366;
+  color: white;
+  min-width: 150px;
+}
+
+/* Add styles for the flipped phone icon */
+.phoneIcon {
+  transform: scaleX(-1);
+  width: 24px;
+  height: 24px;
+}
+
+/* Style for the WhatsApp icon */
+.whatsappButton svg {
+  min-width: 32px;
+  min-height: 32px;
+}
+
+

@@ -14,7 +14,7 @@ function ListingCard({ listing }) {
             <div className={styles.imageContainer}>
                 <img 
                     className={styles.image}
-                    src={listing.images[0]} 
+                    src={listing.image} 
                     alt={listing.title} 
                 />
             </div>
