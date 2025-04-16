@@ -9,6 +9,7 @@ const DetailPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [isExpanded, setIsExpanded] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   
   const listing = listingsData.find(item => item.id === parseInt(id));
 
@@ -59,14 +60,33 @@ const DetailPage = () => {
       
       <div className={styles.propertyDetails}>
         <div className={styles.imageContainer}>
-          <img src={listing.image} alt={listing.title} />
+          <img 
+            src={listing.images[currentImageIndex]} 
+            alt={listing.title} 
+            draggable="false"
+            onTouchStart={(e) => e.currentTarget.dataset.touchX = e.touches[0].clientX}
+            onTouchEnd={(e) => {
+              const diff = e.currentTarget.dataset.touchX - e.changedTouches[0].clientX;
+              if (diff > 50) setCurrentImageIndex(prev => (prev < listing.images.length - 1 ? prev + 1 : 0));
+              if (diff < -50) setCurrentImageIndex(prev => (prev > 0 ? prev - 1 : listing.images.length - 1));
+            }}
+          />
           <div className={styles.imageOverlay}>
             <button className={styles.shareButton}>
               <FiShare />
             </button>
-            <div className={styles.imageCounter}>
-              10/33
-            </div>
+            {listing.images.length > 1 && (
+              <div className={styles.dotIndicators}>
+                {listing.images.map((_, index) => (
+                  <button
+                    key={index}
+                    className={`${styles.dot} ${index === currentImageIndex ? styles.activeDot : ''}`}
+                    onClick={() => setCurrentImageIndex(index)}
+                    aria-label={`View image ${index + 1}`}
+                  />
+                ))}
+              </div>
+            )}
           </div>
         </div>
         

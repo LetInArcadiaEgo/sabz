@@ -116,6 +116,34 @@
   transform: scale(1.05);
 }
 
+.dotIndicators {
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.4rem;
+  padding: 0.4rem;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 1rem;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.2s ease;
+}
+
+.activeDot {
+  background: #80ffb9;
+  transform: scale(1.2);
+}
+
 /* Content Section */
 .content {
   padding: 16px;
@@ -168,13 +196,6 @@
   font-size: 10px;
   font-weight: 700;
   color: #000;
-}
-
-.activeDot {
-  width: 6px;
-  height: 6px;
-  background-color: #2fc077;
-  border-radius: 50%;
 }
 
 /* Property Features */
@@ -283,4 +304,36 @@
   margin-top: 16px;
   padding-top: 16px;
   border-top: 1px solid #eee;
+}
+
+.imageControls {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
+  display: flex;
+  justify-content: space-between;
+  padding: 0 1rem;
+  pointer-events: none;
+}
+
+.navButton {
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.5rem;
+  color: #333;
+  pointer-events: auto;
+  transition: transform 0.2s ease;
+}
+
+.navButton:hover {
+  transform: scale(1.1);
 } 

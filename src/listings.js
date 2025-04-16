@@ -8,7 +8,12 @@ export const listingsData = [
       bedrooms: 3,
       bathrooms: 3,
       propertyType: "House",
-      image: "/images/house3.jpg",
+      images: [
+        "/images/house3.jpg",
+        "/images/house1.jpg",
+        "/images/house2.jpeg",
+        "/images/house4.jpg"
+      ],
       squareFootage: "5 Marlas",
       parking: "2 car parking",
       listingAdded: "Added 1 hour ago",
@@ -25,7 +30,11 @@ export const listingsData = [
         bedrooms: 4,
         bathrooms: 3,
         propertyType: "House",
-        image: "/images/house1.jpg",
+        images: [
+          "/images/house1.jpg",
+          "/images/house3.jpg",
+          "/images/house4.jpg"
+        ],
         squareFootage: "10 Marlas",
         parking: "3 car parking",
         listingAdded: "Added 1 hour ago",
@@ -42,7 +51,12 @@ export const listingsData = [
         bedrooms: 2,
         bathrooms: 2,
         propertyType: "Plot",
-        image: "/images/house4.jpg",
+        images: [
+          "/images/house4.jpg",
+          "/images/house2.jpeg",
+          "/images/house1.jpg",
+          "/images/house3.jpg"
+        ],
         squareFootage: "1 Kanal",
         parking: "4 car parking",
         listingAdded: "Added 1 hour ago",
@@ -59,7 +73,12 @@ export const listingsData = [
         bedrooms: 3,
         bathrooms: 2,
         propertyType: "Apartment",
-        image: "/images/house2.jpeg",
+        images: [
+          "/images/house2.jpeg",
+          "/images/house1.jpg",
+          "/images/house3.jpg",
+          "/images/house4.jpg"
+        ],
         squareFootage: "2 Kanals",
         parking: "2 car parking",
         listingAdded: "Added 1 hour ago",
