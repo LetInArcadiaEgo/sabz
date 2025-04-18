@@ -1,0 +1,72 @@
+:root {
+  --embla-dot-size: 8px;
+  --embla-dot-gap: 6px;
+  --embla-slide-height: 300px;
+  --embla-border-radius: 8px;
+}
+
+.embla {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.embla__viewport {
+  overflow: hidden;
+  width: 100%;
+}
+
+.embla__container {
+  display: flex;
+  user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.embla__slide {
+  position: relative;
+  min-width: 100%;
+}
+
+.embla__slide__img {
+  display: block;
+  width: 100%;
+  height: var(--embla-slide-height);
+  object-fit: cover;
+  border-radius: var(--embla-border-radius);
+}
+
+.embla__dots {
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--embla-dot-gap);
+  z-index: 1;
+}
+
+.embla__dot {
+  width: var(--embla-dot-size);
+  height: var(--embla-dot-size);
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.embla__dot--selected {
+  background-color: white;
+  transform: scale(1.2);
+}
+
+.embla__dots-container {
+  display: flex;
+  align-items: center;
+  gap: var(--embla-dot-gap);
+  transition: transform 0.3s ease;
+}

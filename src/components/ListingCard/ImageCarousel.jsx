@@ -1,13 +1,12 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { FiShare } from 'react-icons/fi';
 import useEmblaCarousel from 'embla-carousel-react';
-import styles from './ListingImage.module.css';
+import './ImageCarousel.css';
 
 const MAX_VISIBLE_DOTS = 5;
 const DOT_WIDTH = 14; // dot width (8px) + gap (6px)
 
-const ListingImage = ({ images, title }) => {
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false });
+const ImageCarousel = ({ images }) => {
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [scrollSnaps, setScrollSnaps] = useState([]);
 
@@ -59,49 +58,44 @@ const ListingImage = ({ images, title }) => {
     return `translateX(calc(50% - ${DOT_WIDTH}px + ${offset * -DOT_WIDTH}px))`;
   };
 
-  const imagesArray = images || [images];
-
   return (
-    <div className={styles.imageContainer}>
-      <div className={styles.embla} ref={emblaRef}>
-        <div className={styles.emblaContainer}>
-          {imagesArray.map((image, index) => (
-            <div className={styles.emblaSlide} key={index}>
-              <img src={image} alt={`${title} - Image ${index + 1}`} />
+    <div className="embla">
+      <div className="embla__viewport" ref={emblaRef}>
+        <div className="embla__container">
+          {images.map((image, index) => (
+            <div className="embla__slide" key={index}>
+              <img 
+                src={image} 
+                alt={`Property view ${index + 1}`}
+                className="embla__slide__img"
+                loading="lazy"
+              />
             </div>
           ))}
         </div>
       </div>
-
-      {scrollSnaps.length > 1 && (
-        <div className={styles.emblaDots}>
-          <div 
-            className={styles.emblaDotsContainer}
-            style={{ transform: getDotsTransform() }}
-          >
-            {scrollSnaps.map((_, index) => (
-              <button
-                key={index}
-                className={`${styles.emblaDot} ${index === selectedIndex ? styles.emblaDotSelected : ''}`}
-                style={{
-                  opacity: getDotVisibility(index, scrollSnaps.length) ? 1 : 0,
-                  pointerEvents: getDotVisibility(index, scrollSnaps.length) ? 'auto' : 'none'
-                }}
-                onClick={() => scrollTo(index)}
-                aria-label={`Go to slide ${index + 1}`}
-              />
-            ))}
-          </div>
+      
+      <div className="embla__dots">
+        <div 
+          className="embla__dots-container"
+          style={{ transform: getDotsTransform() }}
+        >
+          {scrollSnaps.map((_, index) => (
+            <button
+              key={index}
+              className={`embla__dot ${index === selectedIndex ? 'embla__dot--selected' : ''}`}
+              style={{
+                opacity: getDotVisibility(index, scrollSnaps.length) ? 1 : 0,
+                pointerEvents: getDotVisibility(index, scrollSnaps.length) ? 'auto' : 'none'
+              }}
+              onClick={() => scrollTo(index)}
+              aria-label={`Go to slide ${index + 1}`}
+            />
+          ))}
         </div>
-      )}
-
-      <div className={styles.imageOverlay}>
-        <button className={styles.shareButton}>
-          <FiShare />
-        </button>
       </div>
     </div>
   );
 };
 
-export default ListingImage; 
+export default ImageCarousel;
