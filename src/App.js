@@ -11,19 +11,20 @@ import { auth } from './config/firebase';
 const AppContent = () => {
   const location = useLocation();
   const isListingPage = location.pathname.includes('/property/');
+  const isSubmitPage = location.pathname === '/submit';
 
   console.log('Firebase Auth initialized:', auth);
 
   return (
     <div className="app">
-      {!isListingPage && <Navbar />}
+      {!isListingPage && !isSubmitPage && <Navbar />}
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/property/:id" element={<ListingPage />} />
         <Route path="/submit" element={<SubmitListingPage />} />
       </Routes>
-      <Footer />
-      <BottomNav />
+      {!isSubmitPage && <Footer />}
+      {!isSubmitPage && <BottomNav />}
     </div>
   );
 };

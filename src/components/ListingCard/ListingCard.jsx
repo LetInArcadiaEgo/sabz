@@ -60,7 +60,7 @@ const ListingCard = memo(({ listing }) => {
 
 ListingCard.propTypes = {
   listing: PropTypes.shape({
-    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    id: PropTypes.string.isRequired,
     images: PropTypes.arrayOf(PropTypes.string),
     image: PropTypes.string,
     title: PropTypes.string.isRequired,

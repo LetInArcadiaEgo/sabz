@@ -1,6 +1,5 @@
 import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { listingsData } from '../../listings';
 import { FaArrowLeft } from 'react-icons/fa';
 import styles from './ListingPage.module.css';
 import ListingHeader from './components/ListingHeader/ListingHeader';
@@ -11,14 +10,25 @@ import ListingFeatures from './components/ListingFeatures/ListingFeatures';
 import ListingInfoGrid from './components/ListingInfoGrid/ListingInfoGrid';
 import ListingDescription from './components/ListingDescription/ListingDescription';
 import ListingContact from './components/ListingContact/ListingContact';
-
+import { useListing } from '../../hooks/useListings';
 
 const ListingPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const listing = listingsData.find(item => item.id === parseInt(id));
+  const { listing, loading, error } = useListing(id);
 
-  if (!listing) {
+  if (loading) {
+    return (
+      <div className={styles.detailPage}>
+        <h1>Loading...</h1>
+        <button onClick={() => navigate('/')} className={styles.backButton}>
+          <FaArrowLeft />
+        </button>
+      </div>
+    );
+  }
+
+  if (error || !listing) {
     return (
       <div className={styles.detailPage}>
         <h1>Property Not Found</h1>
