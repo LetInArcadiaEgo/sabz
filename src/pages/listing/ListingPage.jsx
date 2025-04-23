@@ -22,7 +22,7 @@ const ListingPage = () => {
     return (
       <div className={styles.detailPage}>
         <h1>Property Not Found</h1>
-        <button onClick={() => navigate('/listings')} className={styles.backButton}>
+        <button onClick={() => navigate('/')} className={styles.backButton}>
           <FaArrowLeft />
         </button>
       </div>

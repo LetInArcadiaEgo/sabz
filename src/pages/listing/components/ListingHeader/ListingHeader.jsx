@@ -8,7 +8,7 @@ const ListingHeader = () => {
 
   return (
     <div className={styles.header}>
-      <button onClick={() => navigate('/listings')} className={styles.backButton}>
+      <button onClick={() => navigate('/')} className={styles.backButton}>
         <FaArrowLeft />
       </button>
       <div className={styles.logoContainer}>

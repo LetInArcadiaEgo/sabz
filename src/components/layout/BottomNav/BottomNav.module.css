@@ -1,0 +1,46 @@
+.nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 0.45rem 1rem;
+    display: flex;
+    justify-content: space-around;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    transform: translateY(0);
+    transition: all 0.3s ease-in-out;
+    z-index: 1000;
+    box-shadow: 0 -4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.hidden {
+    transform: translateY(100%);
+}
+
+.link {
+    text-decoration: none;
+    color: #666;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.25rem 1.5rem;
+    border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+}
+
+.active {
+    color: #2563eb;
+    font-weight: 500;
+}
+
+.icon {
+    font-size: 1.5rem;
+    margin-bottom: 0.25rem;
+}
+
+.label {
+    font-size: 0.75rem;
+    font-weight: 500;
+} 
