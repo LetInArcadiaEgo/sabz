@@ -1,33 +1,30 @@
 import React from 'react';
-import styles from './SubmitListingPage.module.css';
+import styles from './ListingFlowIntro.module.css';
 import { useNavigate } from 'react-router-dom';
+import ExitButton from '../../../components/common/Button/ExitButton';
 
-const SubmitListingPage = () => {
+const ListingFlowIntro = () => {
   const navigate = useNavigate();
   
   const steps = [
     {
       title: "Tell us about your property",
-      description: "Share your property's basic details."
+      description: "Share what kind of property you're listing and its location.",
+      pages: 4
     },
     {
-      title: "Add photos and a title",
-      description: "Upload photos and add a title and description."
+      title: "Add photos and some final details",
+      description: "Upload photos and add a title, description, and price.",
+      pages: 5
     },
-    {
-      title: "Finish up and publish",
-      description: "Choose a starting price, verify a few details, then publish your listing."
-    }
   ];
 
   return (
     <div className={styles.container}>
-      <button onClick={() => navigate('/')} className={styles.exitButton}>
-        Exit
-      </button>
+      <ExitButton />
 
       <div className={styles.content}>
-        <h1 className={styles.title}>Easily add your property listing on Sabz</h1>
+        <h1 className={styles.title}>There are two simple steps to listing with Sabz!</h1>
 
         <div className={styles.steps}>
           {steps.map((step, index) => (
@@ -40,7 +37,7 @@ const SubmitListingPage = () => {
           ))}
         </div>
 
-        <button onClick={() => console.log('Get Started clicked')} className={styles.getStartedButton}>
+        <button onClick={() => navigate('/listing-flow/step-1/1_proptype')} className={styles.getStartedButton}>
           Get started
         </button>
       </div>
@@ -48,4 +45,4 @@ const SubmitListingPage = () => {
   );
 };
 
-export default SubmitListingPage; 
+export default ListingFlowIntro; 

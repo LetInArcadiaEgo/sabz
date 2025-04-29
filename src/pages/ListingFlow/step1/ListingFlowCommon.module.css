@@ -1,0 +1,43 @@
+/* Title styles */
+.stepTitle {
+  font-size: 32px;
+  font-weight: 600;
+  color: #222222;
+  text-align: left;
+  margin: 24px 24px 16px 24px;
+  line-height: 1.1;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Subtitle styles */
+.stepSubtitle {
+  font-size: 16px;
+  color: #717171;
+  margin: 0 24px 32px 24px;
+  line-height: 1.5;
+  text-align: left;
+}
+
+/* Container styles */
+
+
+/* Desktop and up */
+@media (min-width: 768px) {
+  .content {
+    max-width: 640px;
+    padding-top: 120px;
+  }
+
+  .stepTitle {
+    font-size: 40px;
+    margin: 24px 40px 16px 40px;
+  }
+
+  .stepSubtitle {
+    margin: 0 40px 32px 40px;
+  }
+
+  .container {
+    padding: 24px;
+  }
+}

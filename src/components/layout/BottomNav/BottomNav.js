@@ -18,7 +18,7 @@ const BottomNav = () => {
     const handleSubmitClick = (e) => {
         e.preventDefault();
         window.scrollTo(0, 0);
-        navigate('/submit');
+        navigate('/listing-flow');
     };
 
     return (
@@ -27,7 +27,7 @@ const BottomNav = () => {
                 <HiHome className={styles.icon} />
                 <span className={styles.label}>Home</span>
             </Link>
-            <a href="/submit" onClick={handleSubmitClick} className={`${styles.link} ${location.pathname === '/submit' ? styles.active : ''}`}>
+            <a href="/listing-flow" onClick={handleSubmitClick} className={`${styles.link} ${location.pathname === '/listing-flow' ? styles.active : ''}`}>
                 <MdAddHome className={styles.icon} />
                 <span className={styles.label}>Submit</span>
             </a>

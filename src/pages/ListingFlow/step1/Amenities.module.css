@@ -1,0 +1,98 @@
+.content {
+  max-width: 640px;
+  width: 100%;
+  margin: 0 auto;
+  padding-top: 80px;
+  padding-bottom: 120px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 0 16px;
+}
+
+.sectionTitle {
+  font-size: 18px;
+  font-weight: 600;
+  color: #222222;
+  margin: 0;
+}
+
+.amenitiesGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.amenityCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 20px;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  background-color: white;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  text-align: center;
+  min-height: 100px;
+}
+
+.amenityCard:hover {
+  border-color: #222222;
+}
+
+.amenityCard.selected {
+  border: 1px solid #1fb850;
+}
+
+.amenityIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #222222;
+}
+
+.selected .amenityIcon {
+  color: #1fb850;
+}
+
+.amenityLabel {
+  font-size: 14px;
+  font-weight: 500;
+  color: #222222;
+  line-height: 1.2;
+}
+
+.selected .amenityLabel {
+  color: #1fb850;
+}
+
+@media (min-width: 768px) {
+  .content {
+    padding-top: 120px;
+  }
+
+  .section {
+    padding: 0 24px;
+  }
+
+  .amenitiesGrid {
+    gap: 16px;
+  }
+
+  .amenityCard {
+    padding: 24px;
+  }
+
+  .amenityLabel {
+    font-size: 15px;
+  }
+}
