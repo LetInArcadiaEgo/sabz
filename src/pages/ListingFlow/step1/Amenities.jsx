@@ -29,25 +29,25 @@ const Amenities = () => {
 
   const amenities = [
     // Utilities
-    { id: 'power', label: 'Electricity Backup', icon: <FaBolt size={32} /> },
-    { id: 'internet', label: 'Fast Wifi', icon: <FaWifi size={32} /> },
-    { id: 'gas', label: 'Sui Gas', icon: <FaFire size={32} /> },
-    { id: 'ac', label: 'Air Conditioning', icon: <FaSnowflake size={32} /> },
+    { id: 'power', label: 'Electricity Backup', icon: <FaBolt /> },
+    { id: 'internet', label: 'Fast Wifi', icon: <FaWifi /> },
+    { id: 'gas', label: 'Sui Gas', icon: <FaFire /> },
+    { id: 'ac', label: 'Air Conditioning', icon: <FaSnowflake /> },
     // Recreation & Community
-    { id: 'hospital', label: 'Nearby Hospital', icon: <FaHospital size={32} /> },
-    { id: 'mosque', label: 'Nearby Mosque', icon: <FaMosque size={32} /> },
-    { id: 'schools', label: 'Nearby Schools', icon: <FaSchool size={32} /> },
-    { id: 'dispensary', label: 'Nearby Medical Dispensary', icon: <FaClinicMedical size={32} /> },
-    { id: 'garden', label: 'Lawn or Garden', icon: <FaTree size={32} /> },
+    { id: 'hospital', label: 'Nearby Hospital', icon: <FaHospital /> },
+    { id: 'mosque', label: 'Nearby Mosque', icon: <FaMosque /> },
+    { id: 'schools', label: 'Nearby Schools', icon: <FaSchool /> },
+    { id: 'dispensary', label: 'Nearby Medical Dispensary', icon: <FaClinicMedical /> },
+    { id: 'garden', label: 'Lawn or Garden', icon: <FaTree /> },
     // Security & Safety
-    { id: 'gated', label: 'Gated Community', icon: <FaShieldAlt size={32} /> },
-    { id: 'cctv', label: 'CCTV Security', icon: <FaVideo size={32} /> },
-    { id: 'maintenance', label: 'Maintenance Staff', icon: <FaTools size={32} /> },
-    { id: 'security', label: 'Security Staff', icon: <FaUserShield size={32} /> },
+    { id: 'gated', label: 'Gated Community', icon: <FaShieldAlt /> },
+    { id: 'cctv', label: 'CCTV Security', icon: <FaVideo /> },
+    { id: 'maintenance', label: 'Maintenance Staff', icon: <FaTools /> },
+    { id: 'security', label: 'Security Staff', icon: <FaUserShield /> },
     // Rooms & Spaces
-    { id: 'servant', label: 'Servant Room', icon: <FaHome size={32} /> },
-    { id: 'store', label: 'Store Room', icon: <FaBox size={32} /> },
-    { id: 'parking', label: 'Covered Parking', icon: <FaCarSide size={32} /> }
+    { id: 'servant', label: 'Servant Room', icon: <FaHome /> },
+    { id: 'store', label: 'Store Room', icon: <FaBox /> },
+    { id: 'parking', label: 'Covered Parking', icon: <FaCarSide /> }
   ];
 
   const handleNext = () => {
@@ -72,15 +72,15 @@ const Amenities = () => {
         <p className={commonStyles.stepSubtitle}>Select all the amenities available at your property.</p>
 
         <div className={styles.section}>
-          <div className={styles.amenitiesGrid}>
+          <div className={commonStyles.cardGrid}>
             {amenities.map((amenity) => (
               <button
                 key={amenity.id}
-                className={`${styles.amenityCard} ${selectedAmenities.includes(amenity.id) ? styles.selected : ''}`}
+                className={`${commonStyles.card} ${selectedAmenities.includes(amenity.id) ? commonStyles.selected : ''}`}
                 onClick={() => toggleAmenity(amenity.id)}
               >
-                <span className={styles.amenityIcon}>{amenity.icon}</span>
-                <span className={styles.amenityLabel}>{amenity.label}</span>
+                <span className={commonStyles.cardIcon}>{amenity.icon}</span>
+                <span className={commonStyles.cardLabel}>{amenity.label}</span>
               </button>
             ))}
           </div>

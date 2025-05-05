@@ -12,12 +12,12 @@ const PropType = () => {
   const [selectedType, setSelectedType] = useState(null);
 
   const propertyTypes = [
-    { id: 'house', label: 'House', icon: <FaHome size={24} /> },
-    { id: 'flat', label: 'Flat', icon: <FaBuilding size={24} /> },
-    { id: 'upper', label: 'Upper Portion', icon: <MdArrowUpward size={24} /> },
-    { id: 'lower', label: 'Lower Portion', icon: <MdArrowDownward size={24} /> },
-    { id: 'room', label: 'Room', icon: <FaBed size={24} /> },
-    { id: 'farmhouse', label: 'Farm House', icon: <MdHouse size={24} /> }
+    { id: 'house', label: 'House', icon: <FaHome /> },
+    { id: 'flat', label: 'Flat', icon: <FaBuilding /> },
+    { id: 'upper', label: 'Upper Portion', icon: <MdArrowUpward /> },
+    { id: 'lower', label: 'Lower Portion', icon: <MdArrowDownward /> },
+    { id: 'room', label: 'Room', icon: <FaBed /> },
+    { id: 'farmhouse', label: 'Farm House', icon: <MdHouse /> }
   ];
 
   const handleNext = () => {
@@ -37,15 +37,15 @@ const PropType = () => {
       <div className={styles.content}>
         <h1 className={commonStyles.stepTitle}>Which of these best describes your property?</h1>
 
-        <div className={styles.propertyTypeGrid}>
+        <div className={commonStyles.cardGrid}>
           {propertyTypes.map((type) => (
             <button
               key={type.id}
-              className={`${styles.propertyTypeCard} ${selectedType === type.id ? styles.selected : ''}`}
+              className={`${commonStyles.card} ${selectedType === type.id ? commonStyles.selected : ''}`}
               onClick={() => handlePropertySelect(type.id)}
             >
-              <span className={styles.propertyTypeIcon}>{type.icon}</span>
-              <span className={styles.propertyTypeLabel}>{type.label}</span>
+              <span className={commonStyles.cardIcon}>{type.icon}</span>
+              <span className={commonStyles.cardLabel}>{type.label}</span>
             </button>
           ))}
         </div>

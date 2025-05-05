@@ -63,7 +63,7 @@ const BasicInfo = () => {
       <ExitButton />
 
       <div className={styles.content}>
-        <h1 className={commonStyles.stepTitle}>Share some basics about your place</h1>
+        <h1 className={commonStyles.stepTitle}>Share some basics about your property</h1>
         <p className={commonStyles.stepSubtitle}>We'll ask you for details a little later.</p>
 
         <div className={styles.counters}>
@@ -71,10 +71,12 @@ const BasicInfo = () => {
             <span className={styles.label}>Total Area</span>
             <div className={styles.counterControls}>
               <input
-                type="number"
+                type="text"
                 name="totalArea"
                 value={formData.totalArea}
                 onChange={handleInputChange}
+                pattern="[0-9]*"
+                inputMode="numeric"
                 placeholder="Area"
               />
               <select
@@ -106,7 +108,7 @@ const BasicInfo = () => {
 
         <NavigationButtons 
           onNext={handleNext}
-          disableNext={false}
+          disableNext={!formData.totalArea}
         />
       </div>
     </div>

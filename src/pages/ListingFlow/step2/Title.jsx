@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
-import styles from '../ListingFlowIntro/ListingFlowIntro.module.css';
+import styles from './Title.module.css';
+import commonStyles from '../step1/ListingFlowCommon.module.css';
 import { useNavigate } from 'react-router-dom';
+import ExitButton from '../../../components/common/Button/ExitButton';
+import NavigationButtons from '../../../components/common/Button/NavigationButtons';
 
 const Title = () => {
   const navigate = useNavigate();
@@ -10,47 +13,32 @@ const Title = () => {
     navigate('/listing-flow/step-2/description');
   };
 
-  const handleBack = () => {
-    navigate(-1);
-  };
-
   return (
     <div className={styles.container}>
-      <div className={styles.header}>
-        <button onClick={() => navigate('/listing-flow/save')} className={styles.saveExit}>
-          Save & exit
-        </button>
-        <button className={styles.questions}>Questions?</button>
-      </div>
+      <ExitButton />
 
-      <div className={styles.contentSection}>
-        <h1>Now, let's give your house a title</h1>
-        <p className={styles.subtitle}>
-          Short titles work best. Have fun with it—you can always change it later.
+      <div className={styles.content}>
+        <h1 className={commonStyles.stepTitle}>Now, let's give your property a title</h1>
+        <p className={commonStyles.stepSubtitle}>
+          You can always come back and change this later!
         </p>
 
-        <textarea
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          placeholder="The House!"
-          className={styles.titleInput}
-          maxLength={32}
-        />
-        <div className={styles.charCount}>{title.length}/32</div>
+        <div className={styles.inputContainer}>
+          <textarea
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            placeholder="The House!"
+            className={styles.titleInput}
+            maxLength={32}
+          />
+          <div className={styles.charCount}>{title.length}/32</div>
+        </div>
       </div>
 
-      <div className={styles.bottomNav}>
-        <button onClick={handleBack} className={styles.backButton}>
-          Back
-        </button>
-        <button 
-          onClick={handleNext}
-          className={styles.nextButton}
-          disabled={!title.trim()}
-        >
-          Next
-        </button>
-      </div>
+      <NavigationButtons 
+        onNext={handleNext}
+        disableNext={!title.trim()}
+      />
     </div>
   );
 };

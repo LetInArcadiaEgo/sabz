@@ -1,9 +1,18 @@
+.container {
+  background-color: white;
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+
 .content {
   margin: 0 auto;
-  padding-top: 80px;
+  padding-top: 60px;
+  padding-bottom: 120px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 5px;
 }
 
 .formGroup {
@@ -87,4 +96,5 @@
     padding-top: 120px;
   }
 }
+
 

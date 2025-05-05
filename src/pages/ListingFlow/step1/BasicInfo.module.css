@@ -1,9 +1,9 @@
 .content {
   margin: 0 auto;
-  padding-top: 80px;
+  padding-top: 60px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 5px;
 }
 
 .counters {
@@ -22,7 +22,7 @@
 }
 
 .label {
-  font-size: 16px;
+  font-size: 20px;
   font-weight: 500;
   color: #222222;
 }
@@ -33,23 +33,26 @@
   gap: 16px;
 }
 
-.counterControls input[type="number"] {
+.counterControls input[type="number"],
+.counterControls input[type="text"] {
   width: 50px;
   height: 32px;
   padding: 0 5px;
   border: 1px solid #b0b0b0;
   border-radius: 8px;
-  font-size: 16px;
+  font-size: 19px;
   color: #222222;
   outline: none;
   text-align: right;
 }
 
-.counterControls input[type="number"]:focus {
+.counterControls input[type="number"]:focus,
+.counterControls input[type="text"]:focus {
   border-color: #000000;
 }
 
-.counterControls input[type="number"]::placeholder {
+.counterControls input[type="number"]::placeholder,
+.counterControls input[type="text"]::placeholder {
   color: #b0b0b0;
 }
 
@@ -106,7 +109,7 @@
 }
 
 .counterValue {
-  font-size: 16px;
+  font-size: 20px;
   font-weight: 500;
   color: #222222;
   min-width: 20px;

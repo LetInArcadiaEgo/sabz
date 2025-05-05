@@ -1,55 +1,95 @@
-import React from 'react';
-import styles from '../ListingFlowIntro/ListingFlowIntro.module.css';
+import React, { useState } from 'react';
+import styles from './Publish.module.css';
+import commonStyles from '../step1/ListingFlowCommon.module.css';
 import { useNavigate } from 'react-router-dom';
+import ExitButton from '../../../components/common/Button/ExitButton';
+import NavigationButtons from '../../../components/common/Button/NavigationButtons';
 
 const Publish = () => {
   const navigate = useNavigate();
+  const [price, setPrice] = useState('');
+  const [isEditing, setIsEditing] = useState(false);
+
+  const handlePriceChange = (e) => {
+    // Remove any non-digits and existing commas
+    const rawValue = e.target.value.replace(/[^0-9]/g, '');
+    setPrice(rawValue);
+  };
+
+  const formatNumber = (num) => {
+    if (!num) return isEditing ? '' : '0';
+    return num.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  };
 
   const handleNext = () => {
-    // Navigate to the next step or finish the flow
     navigate('/listing-flow/step3');
   };
 
-  const handleBack = () => {
-    navigate(-1);
+  const startEditing = () => {
+    setIsEditing(true);
+  };
+
+  const handleInputBlur = () => {
+    setIsEditing(false);
   };
 
   return (
     <div className={styles.container}>
-      <div className={styles.header}>
-        <button onClick={() => navigate('/listing-flow/save')} className={styles.saveExit}>
-          Save & exit
-        </button>
-        <button className={styles.questions}>Questions?</button>
-      </div>
+      <ExitButton />
 
-      <div className={styles.contentSection}>
-        <h1>Finish up and publish</h1>
-        <p className={styles.subtitle}>
-          Finally, you'll choose booking settings, set up pricing, and publish your listing.
-        </p>
+      <h1 className={commonStyles.stepTitle}>Now, set your price</h1>
+      <p className={commonStyles.stepSubtitle}>
+        You can change it anytime.
+      </p>
 
-        <div className={styles.housePreview}>
-          {/* Add a house preview image here */}
-          <img 
-            src="/house-preview.png" 
-            alt="Modern house preview" 
-            className={styles.previewImage}
-          />
+      <div className={styles.content}>
+        <div className={styles.priceContainer} onClick={startEditing}>
+          <div className={styles.priceWrapper}>
+            <span>PKR</span>
+            {isEditing ? (
+              <input
+                type="text"
+                value={formatNumber(price)}
+                onChange={handlePriceChange}
+                onBlur={handleInputBlur}
+                autoFocus
+                placeholder="0"
+                style={{
+                  border: 'none',
+                  background: 'transparent',
+                  fontSize: 'inherit',
+                  fontWeight: 'inherit',
+                  width: '100%',
+                  outline: 'none',
+                  textAlign: 'left',
+                  minWidth: '120px',
+                  maxWidth: '400px',
+                }}
+              />
+            ) : (
+              <span className={price ? undefined : styles.placeholder}>
+                {formatNumber(price)}
+              </span>
+            )}
+          </div>
+          <button 
+            className={styles.editButton} 
+            onClick={(e) => {
+              e.stopPropagation();
+              startEditing();
+            }}
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+            </svg>
+          </button>
         </div>
       </div>
 
-      <div className={styles.bottomNav}>
-        <button onClick={handleBack} className={styles.backButton}>
-          Back
-        </button>
-        <button 
-          onClick={handleNext}
-          className={styles.nextButton}
-        >
-          Next
-        </button>
-      </div>
+      <NavigationButtons 
+        onNext={handleNext}
+        disableNext={!price || parseInt(price) <= 0}
+      />
     </div>
   );
 };

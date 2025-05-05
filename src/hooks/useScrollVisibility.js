@@ -9,12 +9,28 @@ const useScrollVisibility = () => {
 
         let timeoutId;
         
+        const getScrollPosition = () => {
+            const scrollPosition = {
+                isAtTop: window.scrollY <= 5,
+                isAtBottom: window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 5,
+                isScrollingDown: window.scrollY > lastScrollY
+            };
+            return scrollPosition;
+        };
+
         const controlVisibility = () => {
-            if (window.scrollY > lastScrollY) {
+            const { isAtTop, isAtBottom, isScrollingDown } = getScrollPosition();
+
+            // Handle edge cases first
+            if (isAtTop) {
+                setIsVisible(true);
+            } else if (isAtBottom) {
                 setIsVisible(false);
             } else {
-                setIsVisible(true);
+                // Normal scroll behavior
+                setIsVisible(!isScrollingDown);
             }
+
             setLastScrollY(window.scrollY);
         };
 
@@ -23,7 +39,7 @@ const useScrollVisibility = () => {
                 timeoutId = setTimeout(() => {
                     controlVisibility();
                     timeoutId = null;
-                }, 150); // Throttle to run max every 150ms
+                }, 150);
             }
         };
 

@@ -1,0 +1,85 @@
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding: 60px 24px 0;
+}
+
+.container h1 {
+    padding-top: 27px;
+  margin: 0 0 8px;
+}
+
+.container p {
+  margin: 0;
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 40px;
+}
+
+.priceContainer {
+  margin-top: 80px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  cursor: pointer;
+}
+
+.priceWrapper {
+  display: flex;
+  align-items: center;
+  font-size: clamp(32px, 5vw, 48px);
+  font-weight: 600;
+  color: #222222;
+  gap: 8px;
+  white-space: nowrap;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+}
+
+.priceWrapper:hover {
+  background-color: #F7F7F7;
+}
+
+.placeholder {
+  color: #717171;
+}
+
+.editButton {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #F7F7F7;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 8px;
+  transition: background-color 0.2s ease;
+}
+
+.editButton svg {
+  width: 20px;
+  height: 20px;
+  color: #222222;
+}
+
+.editButton:hover {
+  background: #EBEBEB;
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding-top: 120px;
+  }
+} 

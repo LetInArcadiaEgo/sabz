@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './Address.module.css';
 import commonStyles from './ListingFlowCommon.module.css';
@@ -30,6 +30,21 @@ const Address = () => {
   const handleBack = () => {
     navigate(-1);
   };
+
+  const isFormValid = formData.city && formData.streetAddress;
+
+  useEffect(() => {
+    const resetViewport = () => {
+        // on next frame, scroll to current position (no visual jump) > to force repaint
+        requestAnimationFrame(() => {
+            window.scrollTo(window.scrollX, window.scrollY)
+        })
+    }
+    window.addEventListener('focusout', resetViewport)
+    return () => {
+        window.removeEventListener('focusout', resetViewport)
+    }
+}, [])
 
   return (
     <div className={styles.container}>
@@ -119,6 +134,7 @@ const Address = () => {
           onBack={handleBack}
           nextLabel="Next"
           backLabel="Back"
+          disableNext={!isFormValid}
         />
       </div>
     </div>

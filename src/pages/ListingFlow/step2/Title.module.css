@@ -1,0 +1,54 @@
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding: 60px 0 0 0;
+}
+
+.content {
+  max-width: 640px;
+  width: 100%;
+  margin: 0 auto;
+  flex: 1;
+}
+
+.inputContainer {
+  padding: 0 24px;
+}
+
+.titleInput {
+  width: 100%;
+  padding: 16px 1wpx 16px 16px;
+  font-size: 18px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  resize: none;
+  min-height: 100px;
+  margin-bottom: 8px;
+  transition: border-color 0.2s ease;
+  background-color: white;
+  color: #222222;
+}
+
+.titleInput:focus {
+  outline: none;
+  border-color: #1fb850;
+}
+
+.titleInput::placeholder {
+  color: #717171;
+}
+
+.charCount {
+  text-align: right;
+  color: #717171;
+  font-size: 14px;
+  padding-right: 4px;
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding-top: 120px;
+  }
+}
