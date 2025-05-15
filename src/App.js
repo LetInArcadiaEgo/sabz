@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import HomePage from './pages/home/HomePage';
 import ListingPage from './pages/listing/ListingPage';
@@ -15,19 +15,39 @@ import Step2Intro from './pages/ListingFlow/step2/Step2Intro';
 import Photos from './pages/ListingFlow/step2/Photos';
 import Title from './pages/ListingFlow/step2/Title';
 import Description from './pages/ListingFlow/step2/Description';
+import Price from './pages/ListingFlow/step2/Price';
 import Publish from './pages/ListingFlow/step2/Publish';
+import Success from './pages/ListingFlow/step2/Success';
+import MyListings from './features/my-listings/MyListings';
+import EditListingPage from './features/listing-edit/EditListing';
+
+const NAVBAR_VISIBLE_ROUTES = [
+  '/',
+  '/about',
+  '/contact',
+  '/search'
+];
 
 const AppContent = () => {
   const location = useLocation();
-  const isListingPage = location.pathname.includes('/property/');
   const isListingFlow = location.pathname.includes('/listing-flow');
+  const shouldShowNavbar = NAVBAR_VISIBLE_ROUTES.includes(location.pathname);
+  const shouldShowFooterAndNav = !isListingFlow && 
+    !location.pathname.startsWith('/property/') && 
+    !location.pathname.includes('/my-listings/edit/');
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
 
   return (
     <div className="app">
-      {!isListingPage && !isListingFlow && <Navbar />}
+      {shouldShowNavbar && <Navbar />}
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/property/:id" element={<ListingPage />} />
+        <Route path="/my-listings" element={<MyListings />} />
+        <Route path="/my-listings/edit/:id" element={<EditListingPage />} />
         
         {/* Listing Flow Routes */}
         <Route path="/listing-flow" element={<ListingFlowIntro />} />
@@ -41,10 +61,12 @@ const AppContent = () => {
         {/* New Step2 Routes */}
         <Route path="/listing-flow/step-2/title" element={<Title />} />
         <Route path="/listing-flow/step-2/description" element={<Description />} />
+        <Route path="/listing-flow/step-2/price" element={<Price />} />
         <Route path="/listing-flow/step-2/publish" element={<Publish />} />
+        <Route path="/listing-flow/success" element={<Success />} />
       </Routes>
-      {!isListingFlow && <Footer />}
-      {!isListingFlow && <BottomNav />}
+      {shouldShowFooterAndNav && <Footer />}
+      {shouldShowFooterAndNav && <BottomNav />}
     </div>
   );
 };

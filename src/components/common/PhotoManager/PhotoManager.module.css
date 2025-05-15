@@ -1,0 +1,173 @@
+.container {
+  padding: 0;
+  height: 100%;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  position: relative;
+  z-index: 1;
+  touch-action: pan-y;
+}
+
+.photoGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;  /* Exactly 2 columns */
+  gap: 16px;
+  margin-bottom: 16px;
+  padding: 4px; /* Add padding to show box-shadow */
+  touch-action: pan-y; /* Allow vertical scrolling */
+}
+
+.photoItem {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+  touch-action: auto; /* Allow normal touch behavior for scrolling */
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  background: white;
+}
+
+.photoItem.isDragging {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  transform: scale(1.02);
+  opacity: 0.8;
+  z-index: 999;
+  pointer-events: none;
+}
+
+.photoItem:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.removeButton {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: rgba(0, 0, 0, 0.5);
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: white;
+  transition: all 0.2s;
+  backdrop-filter: blur(4px);
+  z-index: 2;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.removeButton:hover {
+  background: rgba(0, 0, 0, 0.7);
+  transform: scale(1.1);
+}
+
+.dragHandle {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  background: rgba(0, 0, 0, 0.6);
+  border: none;
+  border-radius: 50%;
+  width: 48px; /* Larger for easier targeting */
+  height: 48px; /* Larger for easier targeting */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: grab;
+  color: white;
+  transition: all 0.2s;
+  backdrop-filter: blur(4px);
+  opacity: 1; /* Always visible */
+  z-index: 2;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: none; /* Disable scroll only on the handle */
+}
+
+.dragHandle:active {
+  cursor: grabbing;
+  transform: scale(0.95);
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.photoItem:hover .dragHandle {
+  opacity: 1;
+}
+
+@media (hover: none) {
+  .dragHandle {
+    opacity: 1;
+  }
+}
+
+.dragHandle:hover {
+  background: rgba(0, 0, 0, 0.7);
+  transform: scale(1.1);
+}
+
+.addButton {
+  aspect-ratio: 1;
+  border: 2px dashed #dddddd;
+  border-radius: 20px;
+  background: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  cursor: pointer;
+  color: #717171;
+  transition: all 0.2s;
+  padding: 24px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.addButton:hover {
+  border-color: #222222;
+  color: #222222;
+  background: #f9f9f9;
+}
+
+.addButton:active {
+  transform: scale(0.98);
+}
+
+.addButton span {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.hiddenInput {
+  display: none;
+}
+
+.helpText {
+  text-align: center;
+  color: #717171;
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0 0 16px 0; /* Place it above the photos */
+  padding: 16px 0;
+  border-bottom: 1px solid #eee;
+}
+
+:global(.backdrop).noScroll {
+  overflow: hidden;
+} 

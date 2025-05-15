@@ -1,5 +1,7 @@
 .mainInfo {
   margin-bottom: 16px;
+  text-align: left;
+  padding: 0 2px;
 }
 
 .price {
@@ -7,6 +9,7 @@
   font-weight: 700;
   color: #000;
   margin: 0 0 8px 0;
+  text-align: left;
 }
 
 .mainInfo h1 {
@@ -14,6 +17,7 @@
   margin: 0 0 4px 0;
   color: #666;
   font-weight: 400;
+  text-align: left;
 }
 
 .location {
@@ -26,4 +30,5 @@
   margin: 0;
   font-weight: 400;
   line-height: 1.4;
+  text-align: left;
 } 

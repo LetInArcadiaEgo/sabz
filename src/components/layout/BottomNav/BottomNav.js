@@ -3,15 +3,15 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import styles from './BottomNav.module.css';
 import useScrollVisibility from '../../../hooks/useScrollVisibility';
 import { HiHome } from 'react-icons/hi';
-import { MdAddHome } from 'react-icons/md';
+import { MdAddHome, MdPerson } from 'react-icons/md';
 
 const BottomNav = () => {
     const isVisible = useScrollVisibility();
     const location = useLocation();
     const navigate = useNavigate();
 
-    // Only show on root path (homepage)
-    if (location.pathname !== '/') {
+    // Hide on listing flow pages
+    if (location.pathname.startsWith('/listing-flow')) {
         return null;
     }
 
@@ -27,10 +27,14 @@ const BottomNav = () => {
                 <HiHome className={styles.icon} />
                 <span className={styles.label}>Home</span>
             </Link>
-            <a href="/listing-flow" onClick={handleSubmitClick} className={`${styles.link} ${location.pathname === '/listing-flow' ? styles.active : ''}`}>
+            <Link to="/listing-flow" onClick={handleSubmitClick} className={`${styles.link} ${location.pathname === '/listing-flow' ? styles.active : ''}`}>
                 <MdAddHome className={styles.icon} />
                 <span className={styles.label}>Submit</span>
-            </a>
+            </Link>
+            <Link to="/my-listings" className={`${styles.link} ${location.pathname === '/my-listings' ? styles.active : ''}`}>
+                <MdPerson className={`${styles.icon} ${styles.profileIcon}`} />
+                <span className={styles.label}>My Listings</span>
+            </Link>
         </nav>
     );
 };

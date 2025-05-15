@@ -10,7 +10,7 @@ const Description = () => {
   const [description, setDescription] = useState('');
 
   const handleNext = () => {
-    navigate('/listing-flow/step-2/publish');
+    navigate('/listing-flow/step-2/price');
   };
 
   return (
@@ -20,13 +20,13 @@ const Description = () => {
       <div className={styles.content}>
         <h1 className={commonStyles.stepTitle}>Next, let's describe your house</h1>
         <p className={commonStyles.stepSubtitle}>
-          Choose up to 2 highlights. We'll use these to get your description started.
+          Write a description that highlights the best features of your property.
         </p>
 
         <textarea
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          placeholder="Forget your worries in this spacious and serene space."
+          placeholder="This well-maintained property features modern amenities and a convenient location."
           className={styles.descriptionInput}
           maxLength={500}
         />

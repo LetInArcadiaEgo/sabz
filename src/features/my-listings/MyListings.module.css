@@ -1,0 +1,186 @@
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  background-color: #ffffff;
+  padding-top: 24px;
+  padding-bottom: 80px;
+  height: auto;
+}
+
+.header {
+  max-width: 640px;
+  width: 100%;
+  margin-bottom: 24px;
+  text-align: left;
+  padding: 0 16px;
+}
+
+.title {
+  font-size: 32px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 8px 0;
+  text-align: left;
+  line-height: 1.2;
+  padding: 0;
+}
+
+.subtitle {
+  font-size: 16px;
+  color: #666;
+  margin: 0;
+  text-align: left;
+  padding: 0;
+}
+
+.content {
+  max-width: 640px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 0 10px;
+  flex: 1;
+  height: auto;
+  overflow: visible;
+}
+
+.listingCard {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  margin-bottom: 24px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  outline: none;
+}
+
+.listingCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.listingCard:focus-visible {
+  box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.5);
+}
+
+.listingCard:last-child {
+  margin-bottom: 0;
+}
+
+.imageContainer {
+  position: relative;
+  width: 100%;
+  height: 240px;
+  background: #f5f5f5;
+}
+
+.propertyImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.imageOverlay {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.imageOverlayBottom {
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
+.viewButton {
+  background: rgba(0, 0, 0, 0.5);
+  border: none;
+  border-radius: 100px;
+  padding: 10px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: white;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.viewButton:hover {
+  background: rgba(0, 0, 0, 0.7);
+  transform: scale(1.05);
+}
+
+.viewButton svg {
+  width: 20px;
+  height: 20px;
+}
+
+.actionButton {
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.actionButton:hover {
+  transform: scale(1.05);
+}
+
+.editButton {
+  background: #007AFF;
+  color: white;
+}
+
+.editButton:hover {
+  background: #0066CC;
+}
+
+.shareButton {
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.shareButton:hover {
+  background: white;
+}
+
+.cardContent {
+  padding: 1.25rem 1rem;
+}
+
+.propertyDescription {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #666;
+  margin: 16px 0 0 0;
+  text-align: left;
+}
+
+.emptyState {
+  text-align: center;
+  padding: 48px 16px;
+  background: white;
+  border-radius: 16px;
+  color: #666;
+} 

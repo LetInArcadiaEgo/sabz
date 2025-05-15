@@ -2,23 +2,31 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './NavigationButtons.module.css';
 
-const NavigationButtons = ({ onNext, disableNext = false }) => {
+const NavigationButtons = ({ 
+  onNext, 
+  onBack, 
+  disableNext = false, 
+  nextLabel = 'Next',
+  backLabel = 'Back',
+  className
+}) => {
   const navigate = useNavigate();
+  const handleBack = onBack || (() => navigate(-1));
 
   return (
-    <div className={styles.navigationContainer}>
+    <div className={`${styles.navigationContainer} ${className || ''}`}>
       <button 
         className={styles.backLink}
-        onClick={() => navigate(-1)}
+        onClick={handleBack}
       >
-        Back
+        {backLabel}
       </button>
       <button 
         className={styles.nextButton} 
         onClick={onNext}
         disabled={disableNext}
       >
-        Next
+        {nextLabel}
       </button>
     </div>
   );

@@ -40,6 +40,11 @@
     margin-bottom: 0.25rem;
 }
 
+.profileIcon {
+    font-size: 1.75rem; /* 10% larger than the base 1.5rem */
+    margin-bottom: 0rem; /* Reduced margin to compensate for larger icon size */
+}
+
 .label {
     font-size: 0.75rem;
     font-weight: 500;
