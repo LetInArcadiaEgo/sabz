@@ -1,9 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import styles from './EditListing.module.css';
-import EditModal from '../../components/common/EditModal/EditModal';
-import Counter from '../../components/common/Counter/Counter';
-import PhotoManager from '../../components/common/PhotoManager/PhotoManager';
+
+// Import card components in new order
+import PhotosCard from './EditCards/01_PhotosCard/PhotosCard';
+import PriceCard from './EditCards/02_PriceCard/PriceCard';
+import TitleCard from './EditCards/03_TitleCard/TitleCard';
+import PropertyTypeCard from './EditCards/04_PropertyTypeCard/PropertyTypeCard';
+import BasicInfoCard from './EditCards/05_BasicInfoCard/BasicInfoCard';
+import LocationCard from './EditCards/06_LocationCard/LocationCard';
+import AmenitiesCard from './EditCards/07_AmenitiesCard/AmenitiesCard';
 
 const EditListingPage = () => {
   const { id } = useParams();
@@ -45,16 +51,24 @@ const EditListingPage = () => {
       'ac',
       'parking'
     ],
-    maxGuests: 8,
-    floors: {
-      total: 2,
-      listingFloor: 1
-    },
     locationDetails: 'Lahore, Punjab'
   });
 
   // Keep track of temporary changes
   const [tempChanges, setTempChanges] = useState({});
+
+  // Add effect to handle beforeunload
+  useEffect(() => {
+    const handleBeforeUnload = (e) => {
+      if (hasUnsavedChanges) {
+        e.preventDefault();
+        e.returnValue = '';
+      }
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    return () => window.removeEventListener('beforeunload', handleBeforeUnload);
+  }, [hasUnsavedChanges]);
 
   const handleSave = (field, value) => {
     setListing(prev => ({
@@ -73,15 +87,21 @@ const EditListingPage = () => {
     setActiveModal(null);
   };
 
-  const renderEditCard = (title, content, modalType) => (
-    <div 
-      className={styles.editCard} 
-      onClick={() => setActiveModal(modalType)}
-    >
-      <h3 className={styles.cardTitle}>{title}</h3>
-      <p className={styles.cardContent}>{content}</p>
-    </div>
-  );
+  const handleSaveAll = async () => {
+    // Here you would typically make an API call to save all changes
+    // For now, we'll just update the listing state
+    setListing(prev => ({
+      ...prev,
+      ...tempChanges
+    }));
+    setTempChanges({});
+    setHasUnsavedChanges(false);
+  };
+
+  const handleDiscardAll = () => {
+    setTempChanges({});
+    setHasUnsavedChanges(false);
+  };
 
   return (
     <div className={styles.container}>
@@ -91,197 +111,93 @@ const EditListingPage = () => {
         {hasUnsavedChanges && <span className={styles.unsavedChanges}> (Unsaved changes)</span>}
       </p>
 
-      {/* Photos Card */}
-      {renderEditCard(
-        'Photos',
-        `${listing.photos.length} photos`,
-        'photos'
-      )}
+      <PhotosCard
+        photos={listing.photos}
+        isModalOpen={activeModal === 'photos'}
+        onModalOpen={() => setActiveModal('photos')}
+        onModalClose={handleCancel}
+        onSave={handleSave}
+        tempPhotos={tempChanges.photos}
+        onPhotosChange={(photos) => setTempChanges(prev => ({ ...prev, photos }))}
+      />
 
-      {/* Title Card */}
-      {renderEditCard(
-        'Title',
-        listing.title,
-        'title'
-      )}
+      <PriceCard
+        price={listing.price}
+        isModalOpen={activeModal === 'price'}
+        onModalOpen={() => setActiveModal('price')}
+        onModalClose={handleCancel}
+        onSave={handleSave}
+        tempPrice={tempChanges.price}
+        onPriceChange={(price) => setTempChanges(prev => ({ ...prev, price }))}
+      />
 
-      {/* Property Type Card */}
-      {renderEditCard(
-        'Property type',
-        `${listing.propertyType.type} · ${listing.propertyType.place}`,
-        'propertyType'
-      )}
+      <TitleCard
+        title={listing.title}
+        isModalOpen={activeModal === 'title'}
+        onModalOpen={() => setActiveModal('title')}
+        onModalClose={handleCancel}
+        onSave={handleSave}
+        tempTitle={tempChanges.title}
+        onTitleChange={(title) => setTempChanges(prev => ({ ...prev, title }))}
+      />
 
-      {/* Floors Card */}
-      {renderEditCard(
-        'Floor Information',
-        `Floor ${listing.floors.listingFloor} of ${listing.floors.total}`,
-        'floors'
-      )}
+      <PropertyTypeCard
+        propertyType={listing.propertyType}
+        isModalOpen={activeModal === 'propertyType'}
+        onModalOpen={() => setActiveModal('propertyType')}
+        onModalClose={handleCancel}
+        onSave={handleSave}
+        tempPropertyType={tempChanges.propertyType}
+        onPropertyTypeChange={(propertyType) => setTempChanges(prev => ({ ...prev, propertyType }))}
+      />
 
-      {/* Basic Info Card */}
-      {renderEditCard(
-        'Basic Information',
-        `${listing.basicInfo.bedrooms} bedrooms · ${listing.basicInfo.beds} beds · ${listing.basicInfo.bathrooms} baths · ${listing.basicInfo.totalArea} ${listing.basicInfo.areaUnit}`,
-        'basicInfo'
-      )}
+      <BasicInfoCard
+        basicInfo={listing.basicInfo}
+        isModalOpen={activeModal === 'basicInfo'}
+        onModalOpen={() => setActiveModal('basicInfo')}
+        onModalClose={handleCancel}
+        onSave={handleSave}
+        tempBasicInfo={tempChanges.basicInfo}
+        onBasicInfoChange={(basicInfo) => setTempChanges(prev => ({ ...prev, basicInfo }))}
+      />
 
-      {/* Price Card */}
-      {renderEditCard(
-        'Pricing',
-        `PKR ${listing.price.base.toLocaleString()}`,
-        'price'
-      )}
+      <LocationCard
+        address={listing.address}
+        locationDetails={listing.locationDetails}
+        isModalOpen={activeModal === 'address'}
+        onModalOpen={() => setActiveModal('address')}
+        onModalClose={handleCancel}
+        onSave={handleSave}
+        tempAddress={tempChanges.address}
+        onAddressChange={(address) => setTempChanges(prev => ({ ...prev, address }))}
+        tempLocationDetails={tempChanges.locationDetails}
+        onLocationDetailsChange={(locationDetails) => setTempChanges(prev => ({ ...prev, locationDetails }))}
+      />
 
-      {/* Address Card */}
-      {renderEditCard(
-        'Location',
-        listing.locationDetails || 'Add location details',
-        'address'
-      )}
+      <AmenitiesCard
+        amenities={listing.amenities}
+        isModalOpen={activeModal === 'amenities'}
+        onModalOpen={() => setActiveModal('amenities')}
+        onModalClose={handleCancel}
+        onSave={handleSave}
+        tempAmenities={tempChanges.amenities}
+        onAmenitiesChange={(amenities) => setTempChanges(prev => ({ ...prev, amenities }))}
+      />
 
-      {/* Amenities Card */}
-      {renderEditCard(
-        'Amenities',
-        `${listing.amenities.length} selected`,
-        'amenities'
-      )}
-
-      {/* Guest Limit Card */}
-      {renderEditCard(
-        'Maximum guests',
-        `${listing.maxGuests} guests`,
-        'guests'
-      )}
-
-      {/* Basic Info Modal */}
-      <EditModal
-        isOpen={activeModal === 'basicInfo'}
-        onClose={handleCancel}
-        onSave={() => handleSave('basicInfo', tempChanges.basicInfo || listing.basicInfo)}
-        title="Basic Information"
-        initialData={listing.basicInfo}
-      >
-        <Counter
-          label="Bedrooms"
-          value={(tempChanges.basicInfo || listing.basicInfo).bedrooms}
-          onChange={(value) => setTempChanges(prev => ({
-            ...prev,
-            basicInfo: {
-              ...(prev.basicInfo || listing.basicInfo),
-              bedrooms: value
-            }
-          }))}
-          minValue={1}
-        />
-        <Counter
-          label="Beds"
-          value={(tempChanges.basicInfo || listing.basicInfo).beds}
-          onChange={(value) => setTempChanges(prev => ({
-            ...prev,
-            basicInfo: {
-              ...(prev.basicInfo || listing.basicInfo),
-              beds: value
-            }
-          }))}
-          minValue={1}
-        />
-        <Counter
-          label="Bathrooms"
-          value={(tempChanges.basicInfo || listing.basicInfo).bathrooms}
-          onChange={(value) => setTempChanges(prev => ({
-            ...prev,
-            basicInfo: {
-              ...(prev.basicInfo || listing.basicInfo),
-              bathrooms: value
-            }
-          }))}
-          minValue={1}
-        />
-      </EditModal>
-
-      {/* Guest Limit Modal */}
-      <EditModal
-        isOpen={activeModal === 'guests'}
-        onClose={handleCancel}
-        onSave={() => handleSave('maxGuests', tempChanges.maxGuests || listing.maxGuests)}
-        title="Maximum number of guests"
-        initialData={listing.maxGuests}
-      >
-        <Counter
-          value={tempChanges.maxGuests || listing.maxGuests}
-          onChange={(value) => setTempChanges(prev => ({
-            ...prev,
-            maxGuests: value
-          }))}
-          minValue={1}
-        />
-      </EditModal>
-
-      {/* Property Type Modal */}
-      <EditModal
-        isOpen={activeModal === 'propertyType'}
-        onClose={handleCancel}
-        onSave={() => handleSave('propertyType', tempChanges.propertyType || listing.propertyType)}
-        title="Property type"
-        initialData={listing.propertyType}
-      >
-        <div className={styles.propertyTypeInputs}>
-          <div className={styles.inputGroup}>
-            <label>Place Type</label>
-            <select
-              value={(tempChanges.propertyType || listing.propertyType).place}
-              onChange={(e) => setTempChanges(prev => ({
-                ...prev,
-                propertyType: {
-                  ...(prev.propertyType || listing.propertyType),
-                  place: e.target.value
-                }
-              }))}
-            >
-              <option value="House">House</option>
-              <option value="Apartment">Apartment</option>
-              <option value="Villa">Villa</option>
-              <option value="Condo">Condo</option>
-            </select>
-          </div>
-          
-          <div className={styles.inputGroup}>
-            <label>Rental Type</label>
-            <select
-              value={(tempChanges.propertyType || listing.propertyType).type}
-              onChange={(e) => setTempChanges(prev => ({
-                ...prev,
-                propertyType: {
-                  ...(prev.propertyType || listing.propertyType),
-                  type: e.target.value
-                }
-              }))}
-            >
-              <option value="Entire place">Entire place</option>
-              <option value="Private room">Private room</option>
-              <option value="Shared room">Shared room</option>
-            </select>
-          </div>
-        </div>
-      </EditModal>
-
-      {/* Photos Modal */}
-      <EditModal
-        isOpen={activeModal === 'photos'}
-        onClose={handleCancel}
-        onSave={() => handleSave('photos', tempChanges.photos || listing.photos)}
-        title="Manage Photos"
-        initialData={listing.photos}
-      >
-        <PhotoManager
-          photos={tempChanges.photos || listing.photos}
-          onChange={(photos) => setTempChanges(prev => ({
-            ...prev,
-            photos
-          }))}
-        />
-      </EditModal>
+      <div className={`${styles.saveBar} ${hasUnsavedChanges ? styles.saveBarVisible : ''}`}>
+        <button 
+          className={`${styles.saveButton} ${styles.secondary}`}
+          onClick={handleDiscardAll}
+        >
+          Discard Changes
+        </button>
+        <button 
+          className={`${styles.saveButton} ${styles.primary}`}
+          onClick={handleSaveAll}
+        >
+          Save All Changes
+        </button>
+      </div>
     </div>
   );
 };

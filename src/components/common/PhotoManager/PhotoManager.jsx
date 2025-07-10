@@ -56,7 +56,7 @@ const SortablePhoto = ({ photo, index, onRemove }) => {
         onClick={() => onRemove(index)}
         aria-label="Remove photo"
       >
-        <FiX />
+        <FiX size={16} />
       </button>
       <button
         className={styles.dragHandle}
@@ -64,7 +64,7 @@ const SortablePhoto = ({ photo, index, onRemove }) => {
         {...listeners}
         aria-label="Drag to reorder"
       >
-        <FiMove />
+        <FiMove size={16} />
       </button>
     </div>
   );

@@ -1,0 +1,78 @@
+.priceContainer {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  cursor: pointer;
+  max-width: 100%;
+  margin: 20px 0;
+}
+
+.priceWrapper {
+  display: flex;
+  align-items: center;
+  font-size: clamp(26px, 5vw, 48px);
+  font-weight: 600;
+  color: #222222;
+  gap: 8px;
+  white-space: nowrap;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 8px;
+  max-width: calc(100% - 60px);
+  overflow: hidden;
+}
+
+.inputContainer {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.priceInput {
+  border: none;
+  background: transparent;
+  font-size: inherit;
+  font-weight: inherit;
+  width: 100%;
+  outline: none;
+  text-align: left;
+  padding: 0;
+  min-width: 0;
+}
+
+.priceText {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.currency {
+  flex-shrink: 0;
+}
+
+.placeholder {
+  color: #717171;
+}
+
+.editButton {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #F7F7F7;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 8px;
+}
+
+.editButton svg {
+  width: 20px;
+  height: 20px;
+  color: #222222;
+} 

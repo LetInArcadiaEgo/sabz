@@ -83,11 +83,11 @@
   position: absolute;
   bottom: 12px;
   right: 12px;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.5);
   border: none;
   border-radius: 50%;
-  width: 48px; /* Larger for easier targeting */
-  height: 48px; /* Larger for easier targeting */
+  width: 32px;
+  height: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -95,10 +95,10 @@
   color: white;
   transition: all 0.2s;
   backdrop-filter: blur(4px);
-  opacity: 1; /* Always visible */
+  opacity: 1;
   z-index: 2;
   -webkit-tap-highlight-color: transparent;
-  touch-action: none; /* Disable scroll only on the handle */
+  touch-action: none;
 }
 
 .dragHandle:active {

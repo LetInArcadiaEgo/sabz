@@ -117,10 +117,19 @@ const EditModal = ({
   // Clone children and inject temporary state management props
   const childrenWithProps = React.Children.map(children, child => {
     if (React.isValidElement(child)) {
-      return React.cloneElement(child, {
-        value: tempData,
-        onChange: updateTempData
-      });
+      // Only inject props if they don't already exist on the child
+      const newProps = {};
+      if (!child.props.hasOwnProperty('value')) {
+        newProps.value = tempData;
+      }
+      if (!child.props.hasOwnProperty('onChange')) {
+        newProps.onChange = updateTempData;
+      }
+      
+      // Only clone with new props if we have props to inject
+      return Object.keys(newProps).length > 0
+        ? React.cloneElement(child, newProps)
+        : child;
     }
     return child;
   });
