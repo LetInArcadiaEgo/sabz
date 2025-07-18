@@ -1,12 +1,31 @@
 .container {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  background-color: #ffffff;
-  padding: 24px;
-  gap: 16px;
-  padding-bottom: 80px;
+  padding: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.headerContent {
+  margin: 2rem 0;
+}
+
+.title {
+  font-size: 2rem;
+  margin: 0;
+  padding: 0;
+}
+
+.subtitle {
+  color: #666;
+  margin: 0.5rem 0 0 0;
+}
+
+.header > div {
+  flex: 1;  /* Allow the text container to take up available space */
+}
+
+.header > :last-child {
+  margin-left: 1rem;  /* Add space between text and exit button */
+  flex: 0 0 auto;  /* Prevent exit button from growing */
 }
 
 .editCard {
@@ -32,22 +51,6 @@
 .cardContent {
   font-size: 16px;
   color: #717171;
-}
-
-.title {
-  font-size: 32px;
-  font-weight: 700;
-  color: #1a1a1a;
-  margin: 0 0 8px 0;
-  text-align: left;
-  line-height: 1.2;
-}
-
-.subtitle {
-  font-size: 16px;
-  color: #666;
-  margin: 0;
-  text-align: left;
 }
 
 .unsavedChanges {

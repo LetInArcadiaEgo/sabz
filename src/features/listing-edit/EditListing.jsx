@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import styles from './EditListing.module.css';
+import ExitButton from '../../components/common/Button/ExitButton';
 
 // Import card components in new order
 import PhotosCard from './EditCards/01_PhotosCard/PhotosCard';
@@ -105,11 +106,14 @@ const EditListingPage = () => {
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>Edit Listing</h1>
-      <p className={styles.subtitle}>
-        Editing listing #{id}
-        {hasUnsavedChanges && <span className={styles.unsavedChanges}> (Unsaved changes)</span>}
-      </p>
+      <ExitButton />
+      <div className={styles.headerContent}>
+        <h1 className={styles.title}>Edit Listing</h1>
+        <p className={styles.subtitle}>
+          Editing listing #{id}
+          {hasUnsavedChanges && <span className={styles.unsavedChanges}> (Unsaved changes)</span>}
+        </p>
+      </div>
 
       <PhotosCard
         photos={listing.photos}
