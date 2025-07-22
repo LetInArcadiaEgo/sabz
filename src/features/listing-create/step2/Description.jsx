@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useListingDraft } from '../../../context/ListingDraftProvider'; 
 import styles from './Description.module.css';
 import commonStyles from '../step1/ListingFlowCommon.module.css';
 import { useNavigate } from 'react-router-dom';
@@ -7,6 +8,7 @@ import NavigationButtons from '../../../components/common/Button/NavigationButto
 
 const Description = () => {
   const navigate = useNavigate();
+  const { setDraft } = useListingDraft();   
   const [description, setDescription] = useState('');
 
   const handleNext = () => {
@@ -25,7 +27,11 @@ const Description = () => {
 
         <textarea
           value={description}
-          onChange={(e) => setDescription(e.target.value)}
+          onChange={(e) => {
+            const v = e.target.value;
+            setDescription(v);
+            setDraft(d => ({ ...d, description: v }));                    // 🆕 save
+          }}
           placeholder="This well-maintained property features modern amenities and a convenient location."
           className={styles.descriptionInput}
           maxLength={500}

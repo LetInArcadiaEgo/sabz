@@ -2,6 +2,7 @@ import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { FaArrowLeft } from 'react-icons/fa';
 import styles from './ListingPage.module.css';
+
 import ListingHeader from './components/ListingHeader/ListingHeader';
 import ListingImage from './components/ListingImage/ListingImage';
 import ListingStatus from './components/ListingStatus/ListingStatus';
@@ -10,12 +11,21 @@ import ListingFeatures from './components/ListingFeatures/ListingFeatures';
 import ListingInfoGrid from './components/ListingInfoGrid/ListingInfoGrid';
 import ListingDescription from './components/ListingDescription/ListingDescription';
 import ListingContact from './components/ListingContact/ListingContact';
-import { useListing } from '../../hooks/useListings';
+// import { useListing } from '../../hooks/useListings';
 
 const ListingPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { listing, loading, error } = useListing(id);
+
+  /* --------------------------------------------------------
+     TEMPORARY STUB: remove once we implement useListing(id)
+  ---------------------------------------------------------*/
+  const loading  = false;
+  const error    = null;
+  const listing  = null;   // will be fetched later
+  /* ------------------------------------------------------ */
+
+  // const { listing, loading, error } = useListing(id);
 
   if (loading) {
     return (

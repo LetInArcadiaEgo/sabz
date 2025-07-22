@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useListingDraft } from '../../../context/ListingDraftProvider';
 import styles from './PropType.module.css';
 import commonStyles from './ListingFlowCommon.module.css'; 
 import { useNavigate } from 'react-router-dom';
@@ -9,6 +10,7 @@ import NavigationButtons from '../../../components/common/Button/NavigationButto
 
 const PropType = () => {
   const navigate = useNavigate();
+  const { setDraft } = useListingDraft();
   const [selectedType, setSelectedType] = useState(null);
 
   const propertyTypes = [
@@ -28,6 +30,7 @@ const PropType = () => {
 
   const handlePropertySelect = (typeId) => {
     setSelectedType(typeId);
+    setDraft(d => ({ ...d, propertyType: typeId })); 
   };
 
   return (

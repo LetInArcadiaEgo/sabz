@@ -1,18 +1,16 @@
-import { useState, useEffect } from 'react';
-import { getListings, getListing } from '../utils/firestore';
+import { useEffect, useState } from 'react';
+import { fetchApproved } from '../api';  // NEW
 
-// Hook for fetching all listings
-export const useListings = () => {
+export function useListings() {
   const [listings, setListings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchListings = async () => {
+    const load = async () => {
       try {
-        const data = await getListings();
-        setListings(data);
-        setError(null);
+        const data = await fetchApproved();
+        setListings(data || []);  // handle empty array
       } catch (err) {
         setError(err.message);
       } finally {
@@ -20,39 +18,8 @@ export const useListings = () => {
       }
     };
 
-    fetchListings();
+    load();
   }, []);
 
   return { listings, loading, error };
-};
-
-// Hook for fetching a single listing
-export const useListing = (id) => {
-  const [listing, setListing] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const fetchListing = async () => {
-      try {
-        const data = await getListing(id);
-        if (data) {
-          setListing(data);
-          setError(null);
-        } else {
-          setError('Listing not found');
-        }
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    if (id) {
-      fetchListing();
-    }
-  }, [id]);
-
-  return { listing, loading, error };
-}; 
+}

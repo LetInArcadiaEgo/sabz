@@ -4,9 +4,11 @@ import commonStyles from '../step1/ListingFlowCommon.module.css';
 import { useNavigate } from 'react-router-dom';
 import ExitButton from '../../../components/common/Button/ExitButton';
 import NavigationButtons from '../../../components/common/Button/NavigationButtons';
+import { useListingDraft } from '../../../context/ListingDraftProvider';
 
 const Price = () => {
   const navigate = useNavigate();
+  const { setDraft } = useListingDraft();
   const [price, setPrice] = useState('');
   const [isEditing, setIsEditing] = useState(false);
 
@@ -16,6 +18,9 @@ const Price = () => {
     // Limit to 14 digits
     if (rawValue.length <= 14) {
       setPrice(rawValue);
+      
+      // 💾 store as number OR string in the shared draft
+      setDraft(d => ({ ...d, price: rawValue }));
     }
   };
 

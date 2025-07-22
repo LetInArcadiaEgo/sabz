@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useListingDraft } from '../../../context/ListingDraftProvider'; 
 import styles from './Address.module.css';
 import commonStyles from './ListingFlowCommon.module.css';
 import ExitButton from '../../../components/common/Button/ExitButton';
@@ -7,6 +8,7 @@ import NavigationButtons from '../../../components/common/Button/NavigationButto
 
 const Address = () => {
   const navigate = useNavigate();
+  const { setDraft } = useListingDraft(); 
   const [formData, setFormData] = useState({
     streetAddress: '',
     aptFloorBldg: '',
@@ -21,6 +23,7 @@ const Address = () => {
       ...prev,
       [name]: value
     }));
+    setDraft(d => ({ ...d, [name]: value }));
   };
 
   const handleNext = () => {

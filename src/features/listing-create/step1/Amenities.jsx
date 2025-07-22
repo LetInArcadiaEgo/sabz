@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useListingDraft } from '../../../context/ListingDraftProvider'; 
 import styles from './Amenities.module.css';
 import commonStyles from './ListingFlowCommon.module.css';
 import { useNavigate } from 'react-router-dom';
@@ -25,6 +26,7 @@ import {
 
 const Amenities = () => {
   const navigate = useNavigate();
+  const { setDraft } = useListingDraft();     // write amenities into shared draft
   const [selectedAmenities, setSelectedAmenities] = useState([]);
 
   const amenities = [
@@ -56,10 +58,11 @@ const Amenities = () => {
 
   const toggleAmenity = (amenityId) => {
     setSelectedAmenities(prev => {
-      if (prev.includes(amenityId)) {
-        return prev.filter(id => id !== amenityId);
-      }
-      return [...prev, amenityId];
+      const next = prev.includes(amenityId)
+        ? prev.filter(id => id !== amenityId)
+        : [...prev, amenityId];
+      setDraft(d => ({ ...d, amenities: next }));   // 🆕 save to draft
+      return next;
     });
   };
 

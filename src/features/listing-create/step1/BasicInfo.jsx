@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useListingDraft } from '../../../context/ListingDraftProvider';  
 import styles from './BasicInfo.module.css';
 import commonStyles from './ListingFlowCommon.module.css'; 
 import { useNavigate } from 'react-router-dom';
@@ -30,6 +31,7 @@ const Counter = ({ label, value, onIncrement, onDecrement }) => (
 
 const BasicInfo = () => {
   const navigate = useNavigate();
+  const { setDraft } = useListingDraft(); 
   const [formData, setFormData] = useState({
     bedrooms: 1,
     bathrooms: 1,
@@ -42,20 +44,25 @@ const BasicInfo = () => {
   };
 
   const handleCounter = (field, increment) => {
-    setFormData(prev => ({
-      ...prev,
-      [field]: increment 
-        ? prev[field] + 1 
-        : Math.max(1, prev[field] - 1)
-    }));
+    setFormData(prev => {
+      const updated = {
+        ...prev,
+        [field]: increment
+          ? prev[field] + 1
+          : Math.max(1, prev[field] - 1)
+      };
+      setDraft(d => ({ ...d, ...updated }));   // ✅ write once per change
+      return updated;                        
+    });
   };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
+    setFormData(prev => {
+      const updated = { ...prev, [name]: value };
+      setDraft(d => ({ ...d, ...updated }));   // ✅ write once per change
+      return updated;                        
+    });
   };
 
   return (

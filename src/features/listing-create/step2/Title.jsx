@@ -4,9 +4,11 @@ import commonStyles from '../step1/ListingFlowCommon.module.css';
 import { useNavigate } from 'react-router-dom';
 import ExitButton from '../../../components/common/Button/ExitButton';
 import NavigationButtons from '../../../components/common/Button/NavigationButtons';
+import { useListingDraft } from '../../../context/ListingDraftProvider';
 
 const Title = () => {
   const navigate = useNavigate();
+  const { setDraft } = useListingDraft();
   const [title, setTitle] = useState('');
 
   const handleNext = () => {
@@ -26,7 +28,11 @@ const Title = () => {
         <div className={styles.inputContainer}>
           <textarea
             value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            onChange={(e) => {
+              const v = e.target.value;
+              setTitle(v);
+              setDraft(d => ({ ...d, title: v }));
+            }}
             placeholder="The House!"
             className={styles.titleInput}
             maxLength={32}

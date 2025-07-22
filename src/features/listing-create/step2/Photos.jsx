@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useListingDraft } from '../../../context/ListingDraftProvider';  
 import styles from './Photos.module.css';
 import commonStyles from '../step1/ListingFlowCommon.module.css';
 import { useNavigate } from 'react-router-dom';
@@ -7,12 +8,19 @@ import NavigationButtons from '../../../components/common/Button/NavigationButto
 
 const Photos = () => {
   const navigate = useNavigate();
+  const { setDraft } = useListingDraft();   
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [isDragging, setIsDragging] = useState(false);
 
+  /* helper so every change also writes to the shared draft */
+  const updateFiles = (nextArr) => {
+    setSelectedFiles(nextArr);
+    setDraft(d => ({ ...d, images: nextArr }));                              // + NEW
+  };
+
   const handleFileSelect = (event) => {
     const files = Array.from(event.target.files);
-    setSelectedFiles(prevFiles => [...prevFiles, ...files]);
+    updateFiles([...selectedFiles, ...files]);                               // + changed
   };
 
   const handleDragOver = (e) => {
@@ -28,12 +36,13 @@ const Photos = () => {
   const handleDrop = (e) => {
     e.preventDefault();
     setIsDragging(false);
-    const files = Array.from(e.dataTransfer.files).filter(file => file.type.startsWith('image/'));
-    setSelectedFiles(prevFiles => [...prevFiles, ...files]);
+    const files = Array.from(e.dataTransfer.files)
+                        .filter(f => f.type.startsWith('image/'));
+    updateFiles([...selectedFiles, ...files]);
   };
 
   const removeFile = (index) => {
-    setSelectedFiles(prevFiles => prevFiles.filter((_, i) => i !== index));
+    updateFiles(selectedFiles.filter((_, i) => i !== index));
   };
 
   const handleNext = () => {
@@ -101,7 +110,7 @@ const Photos = () => {
 
         <NavigationButtons 
           onNext={handleNext}
-          disableNext={selectedFiles.length === 0}
+          disableNext={selectedFiles.length < 5}
         />
       </div>
     </div>
