@@ -17,7 +17,7 @@ const BasicInfoCard = ({
     <>
       <EditCard
         title="Basic Information"
-        content={`${basicInfo.bedrooms} bedrooms · ${basicInfo.beds} beds · ${basicInfo.bathrooms} baths · ${basicInfo.totalArea} ${basicInfo.areaUnit}`}
+        content={`${basicInfo.bedrooms} beds · ${basicInfo.bathrooms} baths · ${basicInfo.totalArea} ${basicInfo.areaUnit}`}
         onClick={onModalOpen}
       />
 
@@ -36,15 +36,6 @@ const BasicInfoCard = ({
               onChange={(value) => onBasicInfoChange({
                 ...(tempBasicInfo || basicInfo),
                 bedrooms: value
-              })}
-              minValue={1}
-            />
-            <Counter
-              label="Beds"
-              value={(tempBasicInfo || basicInfo).beds}
-              onChange={(value) => onBasicInfoChange({
-                ...(tempBasicInfo || basicInfo),
-                beds: value
               })}
               minValue={1}
             />

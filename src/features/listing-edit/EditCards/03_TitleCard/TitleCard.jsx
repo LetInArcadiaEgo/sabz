@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import EditCard from '../EditCard';
 import EditModal from '../../../../components/common/EditModal/EditModal';
 import styles from './TitleCard.module.css';
@@ -15,11 +15,19 @@ const TitleCard = ({
   onTitleChange
 }) => {
   const [isEditing, setIsEditing] = useState(false);
+  const inputRef = useRef(null);
 
   // Start editing mode when modal opens
   useEffect(() => {
     if (isModalOpen) {
       setIsEditing(true);
+      // place caret at end of text once input is rendered
+      setTimeout(() => {
+        if (inputRef.current) {
+          const len = (tempTitle || title || '').length;
+          inputRef.current.setSelectionRange(len, len);
+        }
+      }, 0);
     } else {
       setIsEditing(false);
     }
@@ -79,6 +87,7 @@ const TitleCard = ({
                 placeholder="Enter listing title"
                 className={styles.titleInput}
                 maxLength={MAX_CHARS}
+                ref={inputRef}
               />
             </div>
           </div>

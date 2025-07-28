@@ -19,11 +19,21 @@ const Address = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+
+    // Local UI state ---------------------------------------------------
     setFormData(prev => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
-    setDraft(d => ({ ...d, [name]: value }));
+
+    // Persist in global draft (nested "address" object) ---------------
+    setDraft(d => ({
+      ...d,
+      address: {
+        ...d.address,
+        [name]: value,
+      },
+    }));
   };
 
   const handleNext = () => {

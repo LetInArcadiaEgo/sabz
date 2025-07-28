@@ -1,503 +1,253 @@
-# Sabz Real Estate Platform
-
-## 📋 Project Overview
-
-**Sabz** is a modern, comprehensive real estate platform specifically designed for buying and selling properties in Lahore, Pakistan. Built with React and Firebase, this application provides a seamless user experience for property owners to list their properties and for potential buyers to discover and explore real estate options.
-
-### 🎯 Key Features
-
-- **Property Listings**: Browse and search through available properties
-- **Multi-step Listing Creation**: Guided property submission process
-- **Property Management**: Edit and manage existing listings
-- **Interactive Property Details**: Comprehensive property information pages
-- **Mobile-First Design**: Responsive design with bottom navigation
-- **Image Management**: Upload, organize, and display property photos
-- **Real-time Data**: Firebase integration for live data synchronization
-
-## 🛠 Technology Stack
-
-### Frontend
-- **React 18.2.0** - Modern JavaScript library for building user interfaces
-- **React Router DOM 7.4.0** - Client-side routing
-- **CSS Modules** - Scoped styling approach
-- **Inter Font** - Modern, professional typography
-
-### Backend & Database
-- **Firebase 11.6.0** - Backend-as-a-Service platform
-  - **Firestore** - NoSQL document database
-  - **Firebase Authentication** - User authentication system
-  - **Firebase Storage** - File storage for property images
-- **React Firebase Hooks 5.1.1** - React hooks for Firebase
-
-### UI/UX Libraries
-- **React Icons 5.5.0** - Comprehensive icon library
-- **Tabler Icons React 3.31.0** - Additional icon set
-- **React Confetti 6.4.0** - Success animations
-- **Embla Carousel React 8.6.0** - Image carousel component
-
-### Drag & Drop
-- **@dnd-kit/core 6.3.1** - Modern drag and drop library
-- **@dnd-kit/sortable 10.0.0** - Sortable components
-- **@dnd-kit/utilities 3.2.2** - Utility functions
-
-### Mobile Interactions
-- **HammerJS 2.0.8** - Touch gesture library
-
-## 📁 Project Structure
-
-```
-realestateproject/
-├── public/                          # Static assets
-│   ├── images/                      # Property and branding images
-│   │   ├── house1.jpg              # Sample property images
-│   │   ├── house2.jpeg
-│   │   ├── house3.jpg
-│   │   ├── house4.jpg
-│   │   ├── Sabz_Logo_WhiteBG_transparent.png
-│   │   └── sabz_minimal2.png
-│   ├── index.html                   # Main HTML template
-│   ├── manifest.json               # PWA manifest
-│   └── robots.txt                  # Search engine directives
-│
-├── src/                            # Source code
-│   ├── App.js                      # Main application component
-│   ├── index.js                    # Application entry point
-│   ├── setupTests.js               # Test configuration
-│   │
-│   ├── components/                 # Reusable UI components
-│   │   ├── common/                 # Shared components
-│   │   │   ├── Button/             # Button components
-│   │   │   │   ├── ExitButton.jsx          # Modal/flow exit button
-│   │   │   │   └── NavigationButtons.jsx   # Previous/Next navigation
-│   │   │   ├── Counter/            # Numeric input counter
-│   │   │   ├── EditModal/          # Modal for editing
-│   │   │   └── PhotoManager/       # Drag-and-drop photo management
-│   │   ├── layout/                 # Layout components
-│   │   │   ├── BottomNav/          # Mobile bottom navigation
-│   │   │   ├── Footer/             # Page footer
-│   │   │   └── Navbar/             # Top navigation bar
-│   │   ├── ListingCard/            # Property card component
-│   │   │   ├── ImageCarousel.jsx   # Multi-image carousel
-│   │   │   └── ListingCard.jsx     # Individual property card
-│   │   └── Search/                 # Search component
-│   │
-│   ├── config/                     # Configuration files
-│   │   └── firebase.js             # Firebase configuration
-│   │
-│   ├── features/                   # Feature-specific components
-│   │   ├── listing-create/         # Property creation flow
-│   │   │   ├── intro/              # Introduction screen
-│   │   │   ├── step1/              # Basic property information
-│   │   │   │   ├── Address.jsx     # Address input
-│   │   │   │   ├── Amenities.jsx   # Property amenities
-│   │   │   │   ├── BasicInfo.jsx   # Bedrooms, bathrooms, etc.
-│   │   │   │   └── PropType.jsx    # Property type selection
-│   │   │   └── step2/              # Detailed information
-│   │   │       ├── Description.jsx # Property description
-│   │   │       ├── Photos.jsx      # Photo upload
-│   │   │       ├── Price.jsx       # Pricing information
-│   │   │       ├── Publish.jsx     # Final review and publish
-│   │   │       ├── Success.jsx     # Success confirmation
-│   │   │       └── Title.jsx       # Property title
-│   │   ├── listing-edit/           # Property editing functionality
-│   │   │   ├── EditCards/          # Individual edit components
-│   │   │   │   ├── 01_PhotosCard/
-│   │   │   │   ├── 02_PriceCard/
-│   │   │   │   ├── 03_TitleCard/
-│   │   │   │   ├── 04_PropertyTypeCard/
-│   │   │   │   ├── 05_BasicInfoCard/
-│   │   │   │   ├── 06_LocationCard/
-│   │   │   │   └── 07_AmenitiesCard/
-│   │   │   └── EditListing.jsx     # Main edit page
-│   │   └── my-listings/            # User's property management
-│   │       └── MyListings.jsx      # Dashboard for user properties
-│   │
-│   ├── hooks/                      # Custom React hooks
-│   │   ├── useListings.js          # Data fetching for listings
-│   │   └── useScrollVisibility.js  # Scroll-based UI visibility
-│   │
-│   ├── pages/                      # Main page components
-│   │   ├── home/                   # Homepage
-│   │   │   └── HomePage.jsx        # Main landing page
-│   │   └── listing/                # Individual property page
-│   │       ├── components/         # Property page components
-│   │       │   ├── ListingContact/
-│   │       │   ├── ListingDescription/
-│   │       │   ├── ListingFeatures/
-│   │       │   ├── ListingHeader/
-│   │       │   ├── ListingImage/
-│   │       │   ├── ListingInfoGrid/
-│   │       │   ├── ListingMainInfo/
-│   │       │   └── ListingStatus/
-│   │       └── ListingPage.jsx     # Main property detail page
-│   │
-│   ├── styles/                     # Global styles
-│   │   └── global.css              # Global CSS with Inter font
-│   │
-│   └── utils/                      # Utility functions
-│       └── firestore.js            # Firestore database operations
-│
-├── package.json                    # Project dependencies and scripts
-├── package-lock.json              # Locked dependency versions
-└── README.md                      # This documentation file
-```
-
-## 🚀 Getting Started
-
-### Prerequisites
-
-- Node.js (version 14 or higher)
-- npm or yarn package manager
-- Firebase project with Firestore, Authentication, and Storage enabled
-
-### Installation
-
-1. **Clone the repository**
-   ```bash
-   git clone <repository-url>
-   cd realestateproject
-   ```
-
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
-
-3. **Firebase Configuration**
-   
-   Create a `.env.local` file in the root directory and add your Firebase configuration:
-   ```env
-   REACT_APP_FIREBASE_API_KEY=your_api_key
-   REACT_APP_FIREBASE_AUTH_DOMAIN=your_auth_domain
-   REACT_APP_FIREBASE_PROJECT_ID=your_project_id
-   REACT_APP_FIREBASE_STORAGE_BUCKET=your_storage_bucket
-   REACT_APP_FIREBASE_MESSAGING_SENDER_ID=your_messaging_sender_id
-   REACT_APP_FIREBASE_APP_ID=your_app_id
-   ```
-
-4. **Start the development server**
-   ```bash
-   npm start
-   ```
-
-5. **Open your browser**
-   Navigate to [http://localhost:3000](http://localhost:3000)
-
-## 🏗 Architecture & Design Patterns
-
-### Component Architecture
-
-The application follows a **feature-based** architecture with clear separation of concerns:
-
-- **Pages**: Top-level route components
-- **Features**: Business logic grouped by functionality
-- **Components**: Reusable UI components
-- **Hooks**: Custom hooks for data fetching and state management
-
-### State Management
-
-- **Local State**: React's `useState` for component-specific state
-- **Custom Hooks**: Centralized data fetching logic
-- **Firebase Real-time**: Live data synchronization
-
-### Styling Approach
-
-- **CSS Modules**: Scoped styling to prevent conflicts
-- **Consistent Design System**: Shared styles and components
-- **Mobile-First**: Responsive design starting from mobile
-
-## 🏠 Core Features Breakdown
-
-### 1. Property Browsing (Homepage)
-
-**Location**: `src/pages/home/HomePage.jsx`
-
-- **Functionality**: Displays all available properties in a grid layout
-- **Components Used**:
-  - `Search` - Property search functionality
-  - `ListingCard` - Individual property preview cards
-- **Data Source**: Firebase Firestore via `useListings` hook
-
-### 2. Property Creation Flow
-
-**Location**: `src/features/listing-create/`
-
-A **guided 9-step process** for creating property listings:
-
-#### Step 1: Basic Property Information (4 screens)
-1. **Property Type** (`PropType.jsx`) - House, Flat, Room, etc.
-2. **Basic Info** (`BasicInfo.jsx`) - Bedrooms, bathrooms, area
-3. **Address** (`Address.jsx`) - Location details
-4. **Amenities** (`Amenities.jsx`) - Property features
-
-#### Step 2: Detailed Information (5 screens)
-1. **Photos** (`Photos.jsx`) - Image upload with drag-and-drop
-2. **Title** (`Title.jsx`) - Property title
-3. **Description** (`Description.jsx`) - Detailed description
-4. **Price** (`Price.jsx`) - Pricing information
-5. **Publish** (`Publish.jsx`) - Final review and submission
-
-**Success Page**: Confirmation with celebration animation
-
-### 3. Property Management
-
-**Location**: `src/features/my-listings/MyListings.jsx`
-
-- **Dashboard**: Overview of user's listed properties
-- **Actions**: Edit, View, Share individual listings
-- **Navigation**: Direct access to editing interface
-
-### 4. Property Editing
-
-**Location**: `src/features/listing-edit/`
-
-**Modular editing system** with dedicated cards for each property aspect:
-1. **Photos Card** - Image management
-2. **Price Card** - Pricing updates
-3. **Title Card** - Title editing
-4. **Property Type Card** - Type modifications
-5. **Basic Info Card** - Room and area details
-6. **Location Card** - Address updates
-7. **Amenities Card** - Feature management
-
-### 5. Property Detail Page
-
-**Location**: `src/pages/listing/ListingPage.jsx`
-
-**Comprehensive property information** including:
-- **Image Gallery**: Multiple property photos
-- **Property Details**: Price, location, features
-- **Description**: Detailed property information
-- **Contact Information**: Owner contact details
-- **Status Indicators**: Availability status
-
-## 🎨 UI/UX Design System
-
-### Design Principles
-
-1. **Mobile-First**: Optimized for mobile devices with responsive design
-2. **Clean Interface**: Minimal, uncluttered design
-3. **Intuitive Navigation**: Clear user flow and navigation
-4. **Professional Branding**: Consistent Sabz brand identity
-
-### Key UI Components
-
-#### Navigation
-- **Top Navbar**: Logo and tagline
-- **Bottom Navigation**: Home, Submit, My Listings (mobile-optimized)
-- **Scroll Visibility**: Smart hiding/showing based on scroll direction
-
-#### Interactive Elements
-- **Drag-and-Drop**: Photo management with visual feedback
-- **Touch Gestures**: Mobile-optimized interactions
-- **Loading States**: User feedback during data operations
-- **Success Animations**: Engaging confirmation experiences
-
-#### Visual Design
-- **Typography**: Inter font family for modern, readable text
-- **Color Scheme**: Professional green (Sabz = Green in Urdu)
-- **Card-Based Layout**: Consistent card design throughout
-- **Image Carousels**: Smooth image browsing experience
-
-## 🔧 Custom Hooks
-
-### `useListings`
-**Location**: `src/hooks/useListings.js`
-
-Manages property data fetching:
-- `useListings()` - Fetches all properties
-- `useListing(id)` - Fetches single property by ID
-- Returns: `{ listings/listing, loading, error }`
-
-### `useScrollVisibility`
-**Location**: `src/hooks/useScrollVisibility.js`
-
-Controls UI element visibility based on scroll:
-- Hides/shows bottom navigation during scroll
-- Enhances user experience by maximizing content space
-
-## 🗃 Data Management
-
-### Firebase Integration
-
-#### Firestore Database
-**Location**: `src/utils/firestore.js`
-
-**Core Operations**:
-- `getListings()` - Fetch all property listings
-- `getListing(id)` - Fetch single property
-- `addListing(data)` - Create new property listing
-
-**Data Structure** (Property Document):
-```javascript
-{
-  id: "unique_id",
-  title: "Property Title",
-  description: "Property Description", 
-  price: 2500000, // Price in PKR
-  propertyType: {
-    place: "House",
-    type: "Entire place"
-  },
-  basicInfo: {
-    bedrooms: 4,
-    bathrooms: 3,
-    totalArea: 2500,
-    areaUnit: "Sq Ft"
-  },
-  address: {
-    street: "Street Address",
-    city: "Lahore",
-    state: "Punjab", 
-    country: "Pakistan"
-  },
-  amenities: ["power", "gas", "internet"],
-  images: ["url1", "url2", "url3"],
-  locationDetails: "Area, City",
-  squareFootage: "2500 sqft",
-  createdAt: timestamp,
-  updatedAt: timestamp
-}
-```
-
-#### Authentication
-- Google Authentication integration
-- User session management
-- Protected routes for listing management
-
-#### Storage
-- Image upload and management
-- Optimized image delivery
-- Secure file access
-
-## 🛣 Routing Structure
-
-The application uses **React Router DOM** for navigation:
-
-```
-/ (Home)
-├── /property/:id (Property Details)
-├── /my-listings (User Dashboard)
-├── /my-listings/edit/:id (Edit Property)
-└── /listing-flow (Property Creation)
-    ├── /step-1/
-    │   ├── /1_proptype
-    │   ├── /2_basicinfo
-    │   ├── /3_address
-    │   └── /4_amenities
-    ├── /step-2/
-    │   ├── /intro
-    │   ├── /1_photos
-    │   ├── /title
-    │   ├── /description
-    │   ├── /price
-    │   └── /publish
-    └── /success
-```
-
-### Navigation Logic
-
-- **Conditional Navigation**: Different navigation elements for different routes
-- **Flow Protection**: Prevents users from jumping steps in creation flow
-- **Back Navigation**: Consistent back button behavior
-- **Auto-scroll**: Automatic scroll to top on route changes
-
-## 📱 Mobile Optimization
-
-### Responsive Design
-- **Breakpoint-based**: Optimized for different screen sizes
-- **Touch-Friendly**: Large touch targets and intuitive gestures
-- **Performance**: Optimized images and lazy loading
-
-### Bottom Navigation
-- **Three Main Actions**: Home, Submit Property, My Listings
-- **Visual Feedback**: Active state indication
-- **Scroll Behavior**: Auto-hide during content browsing
-
-## 🧪 Available Scripts
-
-- **`npm start`** - Development server (localhost:3000)
-- **`npm build`** - Production build
-- **`npm test`** - Run test suite
-- **`npm eject`** - Eject from Create React App (irreversible)
-
-## 🚀 Deployment
-
-### Build for Production
-```bash
-npm run build
-```
-
-### Deployment Platforms
-- **Firebase Hosting** (recommended for Firebase integration)
-- **Netlify**
-- **Vercel**
-- **Traditional web servers**
-
-### Environment Variables Required
-```env
-REACT_APP_FIREBASE_API_KEY
-REACT_APP_FIREBASE_AUTH_DOMAIN
-REACT_APP_FIREBASE_PROJECT_ID
-REACT_APP_FIREBASE_STORAGE_BUCKET
-REACT_APP_FIREBASE_MESSAGING_SENDER_ID
-REACT_APP_FIREBASE_APP_ID
-```
-
-## 🔮 Future Enhancements
-
-### Planned Features
-- **Advanced Search**: Filters by price, location, property type
-- **User Profiles**: Enhanced user management and preferences
-- **Messaging System**: Direct communication between buyers and sellers
-- **Map Integration**: Property location visualization
-- **Payment Integration**: Online payment processing
-- **Reviews & Ratings**: Property and user review system
-- **Real Estate Analytics**: Market insights and trends
-
-### Technical Improvements
-- **Performance Optimization**: Code splitting and lazy loading
-- **Offline Support**: PWA capabilities
-- **Real-time Chat**: WebSocket integration
-- **Advanced Image Processing**: Automatic optimization and resizing
-- **SEO Optimization**: Meta tags and structured data
-
-## 🐛 Known Issues & Limitations
-
-### Current Limitations
-- **Mock Data**: Some components use placeholder data
-- **Basic Authentication**: Limited user management features
-- **Image Storage**: Local images in development
-- **Search Functionality**: Basic search implementation
-
-### Browser Support
-- **Modern Browsers**: Chrome, Firefox, Safari, Edge (latest versions)
-- **Mobile Browsers**: iOS Safari, Chrome Mobile
-- **JavaScript Required**: Application requires JavaScript enabled
-
-## 🤝 Contributing
-
-### Development Guidelines
-1. Follow existing code structure and naming conventions
-2. Use CSS Modules for styling
-3. Implement proper error handling
-4. Write meaningful commit messages
-5. Test on multiple devices and browsers
-
-### Code Style
-- **JavaScript**: ES6+ features, functional components
-- **CSS**: CSS Modules with BEM-like naming
-- **File Organization**: Feature-based structure
-- **Comments**: Clear documentation for complex logic
-
-## 📄 License
-
-This project is private and proprietary. All rights reserved.
-
-## 🙋‍♂️ Support
-
-For questions, issues, or feature requests, please contact the development team.
+# Sabz – Pakistan’s Simple, Modern Real-Estate Marketplace 🏡
+
+[![React](https://img.shields.io/static/v1?label=Frontend&message=React%2018&color=61DAFB&logo=react)](https://react.dev)
+[![Node.js](https://img.shields.io/static/v1?label=Backend&message=Node%20%2F%20Express&color=339933&logo=node.js)](https://nodejs.org)
+[![Supabase](https://img.shields.io/static/v1?label=Database&message=Supabase&color=3ECF8E&logo=supabase)](https://supabase.com)
+[![License](https://img.shields.io/badge/license-Non--Commercial-green)](#-license)
+
+Sabz helps homeowners list their properties **in minutes** and lets buyers discover beautiful homes around Pakistan.  
+This repo contains the **React front-end**; the Express / Supabase backend lives in a [separate repository](https://github.com/your-org/sabz-backend) and is consumed purely through REST endpoints.
 
 ---
 
-**Sabz Real Estate Platform** - Making property transactions simple and transparent in Lahore, Pakistan. 🏠💚
+## 📑 Table of Contents
+1. [Live Demo](#-live-demo)
+2. [Feature Tour](#-feature-tour)
+3. [System Architecture](#-system-architecture)
+4. [Source-Code Layout](#-source-code-layout)
+5. [Data-Flow & State Management](#-data-flow--state-management)
+6. [API Contract](#-api-contract)
+7. [Local Development](#-local-development)
+8. [NPM Scripts](#-npm-scripts)
+9. [Testing](#-testing)
+10. [Deployment](#-deployment)
+11. [Contributing](#-contributing)
+12. [License](#-license)
+
+---
+
+## 🚀 Live Demo
+
+> **Coming soon** — we’re moving to Vercel! Until then the project runs great locally.
+
+---
+
+## ✨ Feature Tour
+
+### Buyer Experience
+- Home page grid of **approved listings** with responsive carousel cards.
+- **Detail page** with full-width gallery, features grid, price breakdown, and a copy-link **Share dialog**.
+
+### Seller Experience
+- **“List Your Property” wizard** – 2 intuitive steps (Basics → Media & Publish) with inline validation.
+- **Drag-and-drop photo manager** powered by Embla + dnd-kit.
+- **My Listings dashboard** – edit, share or unpublish your own posts in one place.
+- **Inline edit cards** (title, price, amenities, photos…) that update without leaving the page.
+
+### Roadmap
+- 🔍 Advanced search & filters (city, price range, bedrooms…)
+- 🗺️ Map view powered by Leaflet
+- 💬 Supabase Auth + real-time chat between buyers & sellers
+- 📱 PWA offline support
+
+---
+
+## 🏗 System Architecture
+
+Below is a bird’s-eye view of how the React app talks to the Express API & Supabase.
+
+```mermaid
+graph TD;
+  subgraph Frontend (This Repo)
+    A[React 18 SPA]
+    B[Custom Hooks]
+    C[Context Providers]
+    D[Components & Pages]
+    A --> B --> C --> D
+  end
+  subgraph Backend (Separate Repo)
+    E[Express API]
+    F[(Supabase Postgres)]
+    G[(Supabase Storage)]
+    E --> F
+    E --> G
+  end
+  A -- REST HTTPS --> E
+```
+
+---
+
+## 📂 Source-Code Layout
+
+```
+realestateproject/
+├── public/                  # Static assets served verbatim
+│   ├── images/              # Logos + seed/fallback listing images
+│   └── index.html           # Single entry HTML with <div id="root" />
+│
+├── src/                     # All transpiled source lives here
+│   ├── index.js             # ReactDOM.createRoot → <App/>
+│   ├── App.js               # Global <Router>, layout shells, error boundary
+│   ├── api.js               # Thin fetch wrappers around /api endpoints
+│   │
+│   ├── context/             # React Contexts shared app-wide
+│   │   └── ListingDraftProvider.js   # Manages in-progress wizard data
+│   │
+│   ├── hooks/               # Reusable logic: data-fetching, UI, scroll etc.
+│   │   ├── useApprovedListings.js    # Home page data
+│   │   ├── useListing.js             # Single listing data
+│   │   └── useScrollVisibility.js    # Show/hide bottom nav on scroll
+│   │
+│   ├── components/          # Presentational & loosely-coupled widgets
+│   │   ├── common/          # Generic building blocks
+│   │   │   ├── Button/              # ExitButton, NavButtons, ShareButton
+│   │   │   ├── Counter/             # Increment/decrement <input>
+│   │   │   ├── EditModal/           # Slide-up modal used in wizard
+│   │   │   └── PhotoManager/        # Drag-n-drop upload & ordering
+│   │   ├── layout/          # App-wide layout chrome
+│   │   │   ├── Navbar/
+│   │   │   ├── Footer/
+│   │   │   └── BottomNav/           # Mobile tab-bar
+│   │   └── ListingCard/     # Home-page card + image carousel
+│   │
+│   ├── features/            # End-to-end user flows (self-contained)
+│   │   ├── listing-create/  # 2-step wizard (>10 screens)
+│   │   │   ├── intro/
+│   │   │   ├── step1/       # Basics (type, address, amenities…)
+│   │   │   └── step2/       # Photos, desc, price, publish
+│   │   ├── listing-edit/    # "Edit Listing" page with 7 editable cards
+│   │   └── my-listings/     # Dashboard of user’s own listings
+│   │
+│   ├── pages/               # Top-level routes loaded by <Router>
+│   │   ├── home/            # <HomePage/> → grid of <ListingCard/>
+│   │   └── listing/         # Property detail page
+│   │       └── components/  # Header, Gallery, InfoGrid, etc.
+│   │
+│   ├── styles/              # Global or cross-cutting styles
+│   │   └── global.css       # Font-face import + resets + CSS vars
+│   │
+│   ├── utils/               # Pure JS helpers (formatPrice, slugify…)
+│   └── setupTests.js        # Jest & RTL configuration
+│
+├── .env.example             # Template for local env variables
+├── package.json             # CRA scripts + eslint / prettier config
+└── README.md                # You are here 🙌
+```
+
+### Why This Structure?
+- **Vertical slices**: `features/` keeps domain logic close to UI, making it easy to delete or iterate on a flow.
+- **Re-usability first**: Generic UI lives under `components/common/`; nothing in there assumes domain.
+- **Isolation**: Each module has its own CSS Module (`Component.module.css`), guaranteeing no leaks.
+
+---
+
+## 🔄 Data Flow & State Management
+1. **API Layer (`src/api.js`)** — single responsibility: _network I/O_. Converts camelCase JS objects to snake_case for Postgres & vice versa.
+2. **React Context** — `ListingDraftProvider` supplies wizard data to >10 screens without prop-drilling.
+3. **Custom Hooks** — collocate data fetching logic with UI (`useListing`, `useApprovedListings`).
+4. **Local State** — lightweight form inputs handled with `useState` inside each component.
+
+> We deliberately avoid Redux / Zustand for now – React Context + hooks are sufficient for the current scale.
+
+---
+
+## 🛣 API Contract
+
+| Method | Endpoint | Purpose |
+|--------|----------|---------|
+| GET | `/api/listings` | Fetch **approved** listings for home page |
+| GET | `/api/listings/:id` | Fetch single listing detail |
+| POST | `/api/listings` | Create new listing (multipart ‑ JSON + images) |
+| PUT | `/api/listings/:id` | Update existing listing fields |
+| PUT | `/api/listings/:id/photos` | Add additional photos to listing |
+
+### Example: Create Listing
+```http
+POST /api/listings
+Content-Type: multipart/form-data
+
+• listing (JSON) – { title, price, property_type, ... }
+• images[]        – 1..n File objects
+```
+Successful response:
+```json
+{
+  "success": true,
+  "id": "32ec9af2-a0a2-4b3e-b2e3-d3c1af1d8c61"
+}
+```
+
+---
+
+## 💻 Local Development
+
+```bash
+# 1. Clone repo & install deps
+$ git clone https://github.com/your-org/realestateproject.git
+$ cd realestateproject && npm install
+
+# 2. Environment variables
+$ cp .env.example .env.local && nano .env.local
+  # REACT_APP_API_BASE=https://<your-replit-url>
+
+# 3. Run the dev server
+$ npm start
+```
+The app will open at **http://localhost:3000**.  
+The backend can run locally (`npm run dev` in backend repo) or on Replit — just make sure `REACT_APP_API_BASE` points to it.
+
+---
+
+## 📜 NPM Scripts
+| Script | What it does |
+|--------|--------------|
+| `npm start` | CRA dev server + fast refresh |
+| `npm run build` | Production build to `build/` |
+| `npm test` | Jest + React Testing Library |
+| `npm run lint` | ESLint & Prettier checks |
+| `npm run format` | Auto-fix style issues |
+
+---
+
+## 🧪 Testing
+- **Unit** tests live next to source files: `Component.test.jsx`.
+- **RTL** for DOM behavior & accessibility.
+- Mocks: [msw](https://mswjs.io/) intercepts API calls.
+- _Coming soon_: Cypress E2E.
+
+Run all tests:
+```bash
+npm test
+```
+
+---
+
+## 🚢 Deployment
+1. **Frontend**: `npm run build` then upload `build/` to Vercel / Netlify / Firebase Hosting.
+2. **Backend**: Replit (always-on ping) or any Node host.
+3. **Environment**: set `REACT_APP_API_BASE` on the host dashboard.
+
+---
+
+## 🤝 Contributing
+We love contributions! 🫶  
+Please follow these steps:
+1. **Fork** & create feature branch: `git checkout -b feat/amazing`.
+2. **Commit** with [Conventional Commits](https://www.conventionalcommits.org/) (`feat: add share dialog`).
+3. Ensure `npm run lint` & `npm test` pass locally.
+4. Open a PR. A maintainer will review & merge.
+
+### Code Style
+- 2-space indentation, semicolons on, single quotes.
+- Run `npm run format` before pushing.
+
+---
+
+## 📝 License
+
+© 2024 Sabz. All rights reserved.  
+This project is licensed for **non-commercial, educational** use. Contact us for commercial licensing.
+
+---
+
+> _Built with ❤️ by the Sabz team — bringing transparency to Pakistan’s property market._

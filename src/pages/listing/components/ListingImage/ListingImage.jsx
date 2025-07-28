@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { FiShare } from 'react-icons/fi';
+import ShareButton from '../../../../components/common/Button/ShareButton';
 import useEmblaCarousel from 'embla-carousel-react';
 import styles from './ListingImage.module.css';
 
@@ -96,9 +96,7 @@ const ListingImage = ({ images, title }) => {
       )}
 
       <div className={styles.imageOverlay}>
-        <button className={styles.shareButton}>
-          <FiShare />
-        </button>
+        <ShareButton className={styles.shareButton} />
       </div>
     </div>
   );

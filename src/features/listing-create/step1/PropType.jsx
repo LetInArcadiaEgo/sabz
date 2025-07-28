@@ -3,24 +3,21 @@ import { useListingDraft } from '../../../context/ListingDraftProvider';
 import styles from './PropType.module.css';
 import commonStyles from './ListingFlowCommon.module.css'; 
 import { useNavigate } from 'react-router-dom';
-import { FaHome, FaBuilding, FaBed } from 'react-icons/fa';
-import { MdHouse, MdArrowUpward, MdArrowDownward } from 'react-icons/md';
+// Icon components are referenced via shared data file
 import ExitButton from '../../../components/common/Button/ExitButton';
 import NavigationButtons from '../../../components/common/Button/NavigationButtons';
+import { PROPERTY_TYPES } from '../../../components/common/data/propertyTypes';
 
 const PropType = () => {
   const navigate = useNavigate();
   const { setDraft } = useListingDraft();
   const [selectedType, setSelectedType] = useState(null);
 
-  const propertyTypes = [
-    { id: 'house', label: 'House', icon: <FaHome /> },
-    { id: 'flat', label: 'Flat', icon: <FaBuilding /> },
-    { id: 'upper', label: 'Upper Portion', icon: <MdArrowUpward /> },
-    { id: 'lower', label: 'Lower Portion', icon: <MdArrowDownward /> },
-    { id: 'room', label: 'Room', icon: <FaBed /> },
-    { id: 'farmhouse', label: 'Farm House', icon: <MdHouse /> }
-  ];
+  // propertyTypes now comes from shared constants
+  const propertyTypes = PROPERTY_TYPES.map((item) => ({
+    ...item,
+    icon: React.createElement(item.icon),
+  }));
 
   const handleNext = () => {
     if (selectedType) {

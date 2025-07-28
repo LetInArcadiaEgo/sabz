@@ -8,8 +8,8 @@ import { useListingDraft } from '../../../context/ListingDraftProvider';
 
 const Price = () => {
   const navigate = useNavigate();
-  const { setDraft } = useListingDraft();
-  const [price, setPrice] = useState('');
+  const { draft, setDraft } = useListingDraft();
+  const [price, setPrice] = useState(draft.price ? draft.price.toString() : '');
   const [isEditing, setIsEditing] = useState(false);
 
   const handlePriceChange = (e) => {
@@ -90,6 +90,7 @@ const Price = () => {
 
       <NavigationButtons 
         onNext={handleNext}
+        onBack={() => navigate('/listing-flow/step-2/description')}
         disableNext={!price || parseInt(price) <= 0}
       />
     </div>

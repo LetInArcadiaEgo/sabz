@@ -26,6 +26,7 @@ const Step2Intro = () => {
 
       <NavigationButtons 
         onNext={handleNext}
+        onBack={() => navigate('/listing-flow/step-1/4_amenities')}
         disableNext={false}
       />
     </div>

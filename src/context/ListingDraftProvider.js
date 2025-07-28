@@ -4,7 +4,7 @@ const ListingDraftContext = createContext();
 
 export function ListingDraftProvider({ children }) {
   const [draft, setDraft] = useState({
-    // sensible defaults – add more when you build new steps
+
     title:        '',
     description:  '',
     propertyType: '',
@@ -12,8 +12,18 @@ export function ListingDraftProvider({ children }) {
     bathrooms:    1,
     totalArea:    '',
     areaUnit:     'Sq Ft',
-    price:        '',    // you’ll set this in Step-2
-    images:       [],    // later
+    price:        '',    
+
+    // Backend expects a nested address object ----------------------------
+    address: {
+      city:          '',
+      state:         '',
+      streetAddress: '',
+      aptFloorBldg:  '',
+      postalCode:    ''
+    },
+
+    images:       [],    // files selected in Step-2 / Photos
   });
 
   return (

@@ -8,8 +8,8 @@ import NavigationButtons from '../../../components/common/Button/NavigationButto
 
 const Description = () => {
   const navigate = useNavigate();
-  const { setDraft } = useListingDraft();   
-  const [description, setDescription] = useState('');
+  const { draft, setDraft } = useListingDraft();   
+  const [description, setDescription] = useState(draft.description || '');
 
   const handleNext = () => {
     navigate('/listing-flow/step-2/price');
@@ -41,6 +41,7 @@ const Description = () => {
 
       <NavigationButtons 
         onNext={handleNext}
+        onBack={() => navigate('/listing-flow/step-2/title')}
         disableNext={!description.trim()}
       />
     </div>

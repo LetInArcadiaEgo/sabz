@@ -5,66 +5,37 @@ import commonStyles from './ListingFlowCommon.module.css';
 import { useNavigate } from 'react-router-dom';
 import ExitButton from '../../../components/common/Button/ExitButton';
 import NavigationButtons from '../../../components/common/Button/NavigationButtons';
-import { 
-  FaBolt,
-  FaWifi,
-  FaFire,
-  FaSnowflake,
-  FaTree,
-  FaMosque,
-  FaSchool,
-  FaClinicMedical,
-  FaHospital,
-  FaShieldAlt,
-  FaVideo,
-  FaTools,
-  FaUserShield,
-  FaHome,
-  FaBox,
-  FaCarSide
-} from 'react-icons/fa';
+import { AMENITIES } from '../../../components/common/data/amenities';
 
 const Amenities = () => {
   const navigate = useNavigate();
   const { setDraft } = useListingDraft();     // write amenities into shared draft
   const [selectedAmenities, setSelectedAmenities] = useState([]);
 
-  const amenities = [
-    // Utilities
-    { id: 'power', label: 'Electricity Backup', icon: <FaBolt /> },
-    { id: 'internet', label: 'Fast Wifi', icon: <FaWifi /> },
-    { id: 'gas', label: 'Sui Gas', icon: <FaFire /> },
-    { id: 'ac', label: 'Air Conditioning', icon: <FaSnowflake /> },
-    // Recreation & Community
-    { id: 'hospital', label: 'Nearby Hospital', icon: <FaHospital /> },
-    { id: 'mosque', label: 'Nearby Mosque', icon: <FaMosque /> },
-    { id: 'schools', label: 'Nearby Schools', icon: <FaSchool /> },
-    { id: 'dispensary', label: 'Nearby Medical Dispensary', icon: <FaClinicMedical /> },
-    { id: 'garden', label: 'Lawn or Garden', icon: <FaTree /> },
-    // Security & Safety
-    { id: 'gated', label: 'Gated Community', icon: <FaShieldAlt /> },
-    { id: 'cctv', label: 'CCTV Security', icon: <FaVideo /> },
-    { id: 'maintenance', label: 'Maintenance Staff', icon: <FaTools /> },
-    { id: 'security', label: 'Security Staff', icon: <FaUserShield /> },
-    // Rooms & Spaces
-    { id: 'servant', label: 'Servant Room', icon: <FaHome /> },
-    { id: 'store', label: 'Store Room', icon: <FaBox /> },
-    { id: 'parking', label: 'Covered Parking', icon: <FaCarSide /> }
-  ];
+  const amenities = AMENITIES.map((item) => ({
+    ...item,
+    icon: React.createElement(item.icon)
+  }));
 
   const handleNext = () => {
     navigate('/listing-flow/step-2/intro');
   };
 
   const toggleAmenity = (amenityId) => {
-    setSelectedAmenities(prev => {
-      const next = prev.includes(amenityId)
+    setSelectedAmenities(prev => 
+      prev.includes(amenityId)
         ? prev.filter(id => id !== amenityId)
-        : [...prev, amenityId];
-      setDraft(d => ({ ...d, amenities: next }));   // 🆕 save to draft
-      return next;
-    });
+        : [...prev, amenityId]
+    );
   };
+
+  // Update draft whenever selectedAmenities changes
+  useEffect(() => {
+    setDraft(draft => ({
+      ...draft,
+      amenities: selectedAmenities
+    }));
+  }, [selectedAmenities, setDraft]);
 
   return (
     <div className={styles.container}>

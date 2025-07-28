@@ -4,24 +4,41 @@
   gap: 8px;
   margin-bottom: 20px;
   padding: 0 2px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid #eee;
 }
 
 .infoCard {
   background-color: rgba(56, 208, 124, 0.1);
   padding: 17px;
   border-radius: 4px;
-  font-size: 13px;
+  font-size: 16px; /* larger */
   font-weight: 500;
   color: #2c3e50;
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 12px;
 }
 
 .infoCard svg {
-  font-size: 18px;
-  min-width: 18px;
+  font-size: 22px;
+  min-width: 22px;
   color: #1fb361;
+}
+
+.showAllFeaturesBtn {
+  width: 100%;
+  background: #f0f0f0;
+  border: none;
+  border-radius: 8px;
+  padding: 16px;
+  font-size: 17px;
+  font-weight: 600;
+  cursor: pointer;
+  color: #2c3e50;
+  margin-bottom: 32px; /* increase bottom margin */
+}
+
+.featuresSection {
+  border-bottom: 1px solid #eee;
+  padding-bottom: 0; /* remove padding as margin handles spacing */
+  margin-bottom: 32px; /* match spacing to next section */
 } 

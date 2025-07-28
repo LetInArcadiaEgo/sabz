@@ -1,0 +1,54 @@
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 1000;
+}
+
+.dialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 32px 24px 40px;
+  width: 90%;
+  max-width: 460px;
+  z-index: 1001;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.15);
+}
+
+.title {
+  margin-top: 0;
+  margin-bottom: 32px;
+  font-size: 24px;
+  font-weight: 600;
+  text-align: center;
+  color: #222;
+}
+
+.copyButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 18px 0;
+  border-radius: 12px;
+  background: #fff;
+  border: 2px solid #1fb850;
+  color: #1fb850;
+  font-size: 17px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.copyButton:hover {
+  background: #e8f8ee;
+}
+
+.copyIcon {
+  font-size: 20px;
+  color: #1fb850;
+} 

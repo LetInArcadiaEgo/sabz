@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useListingDraft } from '../../../context/ListingDraftProvider';  
 import styles from './BasicInfo.module.css';
 import commonStyles from './ListingFlowCommon.module.css'; 
@@ -31,12 +31,12 @@ const Counter = ({ label, value, onIncrement, onDecrement }) => (
 
 const BasicInfo = () => {
   const navigate = useNavigate();
-  const { setDraft } = useListingDraft(); 
+  const { draft, setDraft } = useListingDraft(); 
   const [formData, setFormData] = useState({
-    bedrooms: 1,
-    bathrooms: 1,
-    totalArea: '',
-    areaUnit: 'Square Feet'
+    bedrooms: draft.bedrooms || 1,
+    bathrooms: draft.bathrooms || 1,
+    totalArea: draft.totalArea || '',
+    areaUnit: draft.areaUnit || 'Sq Ft'
   });
 
   const handleNext = () => {
@@ -44,26 +44,29 @@ const BasicInfo = () => {
   };
 
   const handleCounter = (field, increment) => {
-    setFormData(prev => {
-      const updated = {
-        ...prev,
-        [field]: increment
-          ? prev[field] + 1
-          : Math.max(1, prev[field] - 1)
-      };
-      setDraft(d => ({ ...d, ...updated }));   // ✅ write once per change
-      return updated;                        
-    });
+    setFormData(prev => ({
+      ...prev,
+      [field]: increment
+        ? prev[field] + 1
+        : Math.max(1, prev[field] - 1)
+    }));
   };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => {
-      const updated = { ...prev, [name]: value };
-      setDraft(d => ({ ...d, ...updated }));   // ✅ write once per change
-      return updated;                        
-    });
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
   };
+
+  // Update draft whenever formData changes
+  useEffect(() => {
+    setDraft(draft => ({
+      ...draft,
+      ...formData
+    }));
+  }, [formData, setDraft]);
 
   return (
     <div className={styles.container}>
@@ -115,6 +118,7 @@ const BasicInfo = () => {
 
         <NavigationButtons 
           onNext={handleNext}
+          onBack={() => navigate('/listing-flow/step-1/1_proptype')}
           disableNext={!formData.totalArea}
         />
       </div>

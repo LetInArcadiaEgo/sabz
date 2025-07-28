@@ -1,0 +1,26 @@
+.listingCard {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #e2e2e2;
+  border-radius: 12px;
+  overflow: hidden;
+  max-width: 420px;
+  margin: 0 auto;
+  cursor: pointer;
+}
+
+.imageContainer img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.cardContent {
+  padding: 16px;
+}
+
+.propertyDescription {
+  margin-top: 8px;
+  color: #444;
+  font-size: 14px;
+} 

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { fetchApproved } from '../api';  // NEW
+import { fetchApproved } from '../api';
 
-export function useListings() {
+export function useApprovedListings() {
   const [listings, setListings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -10,16 +10,15 @@ export function useListings() {
     const load = async () => {
       try {
         const data = await fetchApproved();
-        setListings(data || []);  // handle empty array
+        setListings(Array.isArray(data) ? data : []);
       } catch (err) {
-        setError(err.message);
+        setError(err.message || 'Failed to fetch listings');
       } finally {
         setLoading(false);
       }
     };
-
     load();
   }, []);
 
   return { listings, loading, error };
-}
+} 

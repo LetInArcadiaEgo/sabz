@@ -8,8 +8,8 @@ import NavigationButtons from '../../../components/common/Button/NavigationButto
 
 const Photos = () => {
   const navigate = useNavigate();
-  const { setDraft } = useListingDraft();   
-  const [selectedFiles, setSelectedFiles] = useState([]);
+  const { draft, setDraft } = useListingDraft();   
+  const [selectedFiles, setSelectedFiles] = useState(draft.images || []);
   const [isDragging, setIsDragging] = useState(false);
 
   /* helper so every change also writes to the shared draft */
@@ -110,6 +110,7 @@ const Photos = () => {
 
         <NavigationButtons 
           onNext={handleNext}
+          onBack={() => navigate('/listing-flow/step-2/intro')}
           disableNext={selectedFiles.length < 5}
         />
       </div>

@@ -2,20 +2,10 @@ import React from 'react';
 import EditCard from '../EditCard';
 import EditModal from '../../../../components/common/EditModal/EditModal';
 import styles from './PropertyTypeCard.module.css';
-import { FaHome, FaBuilding, FaBed } from 'react-icons/fa';
-import { MdHouse, MdArrowUpward, MdArrowDownward } from 'react-icons/md';
-
-const propertyTypes = [
-  { id: 'house', label: 'House', icon: <FaHome />, value: 'House' },
-  { id: 'apartment', label: 'Apartment', icon: <FaBuilding />, value: 'Apartment' },
-  { id: 'upper', label: 'Upper Portion', icon: <MdArrowUpward />, value: 'Upper Portion' },
-  { id: 'lower', label: 'Lower Portion', icon: <MdArrowDownward />, value: 'Lower Portion' },
-  { id: 'room', label: 'Room', icon: <FaBed />, value: 'Room' },
-  { id: 'villa', label: 'Villa', icon: <MdHouse />, value: 'Villa' }
-];
+import { PROPERTY_TYPES } from '../../../../components/common/data/propertyTypes';
 
 const PropertyTypeCard = ({
-  propertyType,
+  propertyType, // now expects a string like 'house', 'flat', etc.
   isModalOpen,
   onModalOpen,
   onModalClose,
@@ -23,18 +13,18 @@ const PropertyTypeCard = ({
   tempPropertyType,
   onPropertyTypeChange
 }) => {
-  const handlePropertySelect = (value) => {
-    onPropertyTypeChange({
-      ...(tempPropertyType || propertyType),
-      place: value
-    });
+  const handlePropertySelect = (typeId) => {
+    onPropertyTypeChange(typeId); // just pass the ID directly
   };
+
+  // Find the display data for current type
+  const currentType = PROPERTY_TYPES.find(t => t.id === (tempPropertyType || propertyType)) || PROPERTY_TYPES[0];
 
   return (
     <>
       <EditCard
         title="Property type"
-        content={propertyType.place}
+        content={currentType.label}
         onClick={onModalOpen}
       />
 
@@ -48,13 +38,13 @@ const PropertyTypeCard = ({
         <div className={styles.propertyTypeContainer}>
           <h2 className={styles.propertyTypeHeading}>Select your property type</h2>
           <div className={styles.cardGrid}>
-            {propertyTypes.map((type) => (
+            {PROPERTY_TYPES.map((type) => (
               <button
                 key={type.id}
-                className={`${styles.card} ${(tempPropertyType || propertyType).place === type.value ? styles.selected : ''}`}
-                onClick={() => handlePropertySelect(type.value)}
+                className={`${styles.card} ${(tempPropertyType || propertyType) === type.id ? styles.selected : ''}`}
+                onClick={() => handlePropertySelect(type.id)}
               >
-                <span className={styles.cardIcon}>{type.icon}</span>
+                <span className={styles.cardIcon}>{React.createElement(type.icon)}</span>
                 <span className={styles.cardLabel}>{type.label}</span>
               </button>
             ))}
