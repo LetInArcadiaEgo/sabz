@@ -5,29 +5,7 @@ import commonStyles from './ListingFlowCommon.module.css';
 import { useNavigate } from 'react-router-dom';
 import ExitButton from '../../../components/common/Button/ExitButton';
 import NavigationButtons from '../../../components/common/Button/NavigationButtons';
-
-// New Counter component
-const Counter = ({ label, value, onIncrement, onDecrement }) => (
-  <div className={styles.counterItem}>
-    <span className={styles.label}>{label}</span>
-    <div className={styles.counterControls}>
-      <button 
-        onClick={onDecrement} 
-        className={styles.counterButton}
-        disabled={value <= 1}
-      >
-        −
-      </button>
-      <span className={styles.counterValue}>{value}</span>
-      <button 
-        onClick={onIncrement} 
-        className={styles.counterButton}
-      >
-        +
-      </button>
-    </div>
-  </div>
-);
+import Counter from '../../../components/common/Counter/Counter';
 
 const BasicInfo = () => {
   const navigate = useNavigate();
@@ -41,15 +19,6 @@ const BasicInfo = () => {
 
   const handleNext = () => {
     navigate('/listing-flow/step-1/3_address');
-  };
-
-  const handleCounter = (field, increment) => {
-    setFormData(prev => ({
-      ...prev,
-      [field]: increment
-        ? prev[field] + 1
-        : Math.max(1, prev[field] - 1)
-    }));
   };
 
   const handleInputChange = (e) => {
@@ -104,15 +73,15 @@ const BasicInfo = () => {
           <Counter 
             label="Bedrooms"
             value={formData.bedrooms}
-            onIncrement={() => handleCounter('bedrooms', true)}
-            onDecrement={() => handleCounter('bedrooms', false)}
+            onChange={(bedrooms) => setFormData(prev => ({ ...prev, bedrooms }))}
+            minValue={1}
           />
 
           <Counter 
             label="Bathrooms"
             value={formData.bathrooms}
-            onIncrement={() => handleCounter('bathrooms', true)}
-            onDecrement={() => handleCounter('bathrooms', false)}
+            onChange={(bathrooms) => setFormData(prev => ({ ...prev, bathrooms }))}
+            minValue={1}
           />
         </div>
 

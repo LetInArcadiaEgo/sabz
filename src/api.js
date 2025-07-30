@@ -1,4 +1,61 @@
-const API_BASE_URL = process.env.REACT_APP_API_BASE;
+import { listingToApiFormat } from './models/Listing';
+import { supabase } from './supabaseClient';
+
+const API_BASE_URL = process.env.REACT_APP_API_BASE || 'http://localhost:3001';
+
+// Helper function to add auth headers to requests
+const withAuth = async (init = {}) => {
+  try {
+    const { data: { session }, error } = await supabase.auth.getSession();
+    if (error) {
+      console.error('Error getting session:', error);
+      return init;
+    }
+
+    const accessToken = session?.access_token;
+    if (!accessToken) {
+      return init;
+    }
+
+    return {
+      ...init,
+      headers: {
+        ...init.headers,
+        Authorization: `Bearer ${accessToken}`,
+      },
+    };
+  } catch (error) {
+    console.error('Error adding auth headers:', error);
+    return init;
+  }
+};
+
+// Helper function to make authenticated requests with retry on 401
+const authenticatedFetch = async (url, init = {}) => {
+  // First attempt with auth
+  const authInit = await withAuth(init);
+  let response = await fetch(url, authInit);
+
+  // If 401 (token expired), try to refresh and retry once
+  if (response.status === 401) {
+    try {
+      const { error } = await supabase.auth.refreshSession();
+      if (error) {
+        console.error('Failed to refresh session:', error);
+        throw new Error('Authentication failed');
+      }
+
+      // Retry with new token
+      const refreshedAuthInit = await withAuth(init);
+      response = await fetch(url, refreshedAuthInit);
+    } catch (refreshError) {
+      console.error('Session refresh failed:', refreshError);
+      throw new Error('Authentication failed');
+    }
+  }
+
+  return response;
+};
 
 /* fetches only approved rows */
 export async function fetchApproved() {
@@ -9,29 +66,20 @@ export async function fetchApproved() {
 
 /* sends a new listing (status will be 'pending') + images */
 export async function createListing(draft) {
-  // draft.images may contain File objects (from file input) or string URLs
-  const {
-    images = [],
-    propertyType,
-    totalArea,
-    areaUnit,
-    ...rest
-  } = draft;
-
-  // Build payload with correct column names for backend
-  const listingPayload = {
-    ...rest,
-    property_type: propertyType || 'house',
-    total_area:    typeof totalArea === 'number' ? totalArea : totalArea ? Number(totalArea) : null,
-    area_unit:     areaUnit || null,
-  };
+  // Convert to API format using centralized function
+  const listingPayload = listingToApiFormat(draft);
+  
+  // Payload prepared for backend
+  
+  // Handle both images (create flow) and photos (edit flow)
+  const imageFiles = draft.images || draft.photos || [];
 
   const form = new FormData();
   form.append('listing', JSON.stringify(listingPayload));
 
   // Helper to append images in a way that mirrors the backend seed script
   const appendImagesToForm = async () => {
-    const tasks = images.map(async (img, idx) => {
+    const tasks = imageFiles.map(async (img, idx) => {
       // Case 1: Already a File object from <input type="file" />
       if (img instanceof File) {
         form.append('images', img, img.name);
@@ -63,7 +111,7 @@ export async function createListing(draft) {
   // Build form data (listing JSON + images)
   await appendImagesToForm();
 
-  const res = await fetch(`${API_BASE_URL}/api/listings`, {
+  const res = await authenticatedFetch(`${API_BASE_URL}/api/listings`, {
     method: 'POST',
     body:   form, // browser sets correct Content-Type with boundary
   });
@@ -107,29 +155,14 @@ export async function fetchListing(id) {
   }
 }
 
-// Updates an existing listing by ID (Phase 4)
+// Updates an existing listing by ID
 export async function updateListing(id, payload) {
   if (!id) throw new Error('Listing ID is required');
 
-  // Transform certain nested forms to the flat shape the backend expects
-  const transformed = { ...payload };
-  if (payload?.price && typeof payload.price === 'object') {
-    transformed.price = payload.price.base ?? 0;
-  }
+  // Use centralized API format conversion
+  const transformed = listingToApiFormat(payload);
 
-  // propertyType remains nested – keep as-is for backend
-
-  // keep basicInfo nested; backend will flatten to DB columns
-
-  if (payload?.address && typeof payload.address === 'object') {
-    transformed.address = payload.address; // keep nested – backend already supports
-  }
-
-  if (Array.isArray(payload?.photos)) {
-    // backend expects 'photos' key, so keep unchanged
-  }
-
-  const res = await fetch(`${API_BASE_URL}/api/listings/${id}`, {
+  const res = await authenticatedFetch(`${API_BASE_URL}/api/listings/${id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -150,20 +183,17 @@ export async function updateListing(id, payload) {
 export async function uploadPhotos(id, files) {
   if (!files?.length) return [];
 
-  // eslint-disable-next-line no-console
-  console.log('[api.uploadPhotos] uploading', files.length, 'files');
+  // Uploading files
 
   const form = new FormData();
   files.forEach((f) => form.append('images', f, f.name));
 
-  const res  = await fetch(`${API_BASE_URL}/api/listings/${id}/photos`, {
+  const res  = await authenticatedFetch(`${API_BASE_URL}/api/listings/${id}/photos`, {
     method: 'PUT',
     body:   form,
   });
 
   const json = await res.json();
-  // eslint-disable-next-line no-console
-  console.log('[api.uploadPhotos] server response', json);
   if (!json.success) throw new Error(json.message || 'Photo upload failed');
   return json.images || [];
 }

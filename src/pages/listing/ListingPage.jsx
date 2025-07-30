@@ -22,11 +22,11 @@ const ListingPage = () => {
   // If navigated from HomePage we may have the listing in state
   const preloadedListing = location.state?.listing;
 
-  const { listing: fetchedListing, loading, error } = useListing(preloadedListing ? null : id);
+  const { data: fetchedListing, isLoading, error } = useListing(preloadedListing ? null : id);
 
   const listing = preloadedListing || fetchedListing;
 
-  if (!preloadedListing && loading) {
+  if (!preloadedListing && isLoading) {
     return (
       <div className={styles.detailPage}>
         <h1>Loading...</h1>

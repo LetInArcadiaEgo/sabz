@@ -17,7 +17,7 @@
   padding: 0 16px;
 }
 
-.title {
+.header h1 {
   font-size: 32px;
   font-weight: 700;
   color: #1a1a1a;
@@ -27,12 +27,55 @@
   padding: 0;
 }
 
-.subtitle {
+.header p {
   font-size: 16px;
   color: #666;
   margin: 0;
   text-align: left;
   padding: 0;
+}
+
+.message {
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+.message h2 {
+  font-size: 1.5rem;
+  color: #222;
+  margin-bottom: 1rem;
+}
+
+.message p {
+  color: #717171;
+  font-size: 1rem;
+}
+
+.emptyState {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: #717171;
+  background: white;
+  border-radius: 16px;
+  margin: 0 16px;
+}
+
+.emptyIcon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
+
+.emptyState h2 {
+  font-size: 1.5rem;
+  color: #222;
+  margin-bottom: 1rem;
+}
+
+.emptyState p {
+  font-size: 1rem;
+  max-width: 400px;
+  margin: 0 auto;
+  line-height: 1.5;
 }
 
 .content {
@@ -148,21 +191,34 @@
   transform: scale(1.05);
 }
 
-.editButton {
-  background: #007AFF;
-  color: white;
-}
-
-.editButton:hover {
-  background: #0066CC;
-}
-
 .shareButton {
   background: rgba(255, 255, 255, 0.9);
 }
 
 .shareButton:hover {
   background: white;
+}
+
+.bookmarkButton {
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.bookmarkButton:hover {
+  background: white;
+  transform: scale(1.1);
+}
+
+.bookmarkButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.bookmarkEmpty {
+  opacity: 0.7;
+}
+
+.bookmarkFilled {
+  opacity: 1;
 }
 
 .cardContent {
@@ -177,56 +233,28 @@
   text-align: left;
 }
 
-.emptyState {
-  text-align: center;
-  padding: 48px 16px;
-  background: white;
-  border-radius: 16px;
-  color: #666;
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
+  
+  .header h1 {
+    font-size: 2rem;
+  }
+  
+  .content {
+    padding: 0;
+  }
+  
+  .emptyState {
+    padding: 2rem 1rem;
+    margin: 0;
+  }
 }
 
-.createButton {
-  margin-top: 16px;
-  padding: 12px 24px;
-  background-color: #1a73e8;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-
-.createButton:hover {
-  background-color: #1557b0;
-}
-
-.createButton:active {
-  background-color: #1146a0;
-}
-
-/* Logout button styling - combines save button and exit button styles */
-.logoutButton {
-  position: absolute;
-  top: 24px;
-  right: 24px;
-  padding: 8px 20px;
-  border-radius: 40px;
-  background-color: #222222;
-  color: white;
-  border: none;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.logoutButton:hover {
-  background-color: #000000;
-}
-
-/* Responsive spacing to match Submit Listing pages */
 @media (min-width: 768px) {
   .container {
     padding-top: 120px;

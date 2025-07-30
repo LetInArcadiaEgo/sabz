@@ -2,6 +2,11 @@ import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation, Outlet } from 'react-router-dom';
 import HomePage from './pages/home/HomePage';
 import ListingPage from './pages/listing/ListingPage';
+import Login from './pages/auth/Login';
+import Signup from './pages/auth/Signup';
+import ForgotPassword from './pages/auth/ForgotPassword';
+import SavedListings from './pages/SavedListings';
+import PrivateRoute from './components/PrivateRoute';
 import Navbar from './components/layout/Navbar/Navbar';
 import Footer from './components/layout/Footer/Footer';
 import BottomNav from './components/layout/BottomNav/BottomNav';
@@ -26,7 +31,10 @@ const NAVBAR_VISIBLE_ROUTES = [
   '/',
   '/about',
   '/contact',
-  '/search'
+  '/search',
+  '/login',
+  '/signup',
+  '/forgot-password'
 ];
 
 const AppContent = () => {
@@ -53,14 +61,24 @@ const AppContent = () => {
     {/* regular pages – unchanged */}
       <Route path="/"               element={<HomePage />} />
       <Route path="/property/:id"   element={<ListingPage />} />
-      <Route path="/my-listings"    element={<MyListings />} />
-      <Route path="/my-listings/edit/:id" element={<EditListingPage />} />
+      
+    {/* protected pages */}
+      <Route path="/my-listings"    element={<PrivateRoute><MyListings /></PrivateRoute>} />
+      <Route path="/my-listings/edit/:id" element={<PrivateRoute><EditListingPage /></PrivateRoute>} />
+      <Route path="/saved"          element={<PrivateRoute><SavedListings /></PrivateRoute>} />
+      
+    {/* auth pages */}
+      <Route path="/login"          element={<Login />} />
+      <Route path="/signup"         element={<Signup />} />
+      <Route path="/forgot-password" element={<ForgotPassword />} />
 
-    {/* wizard pages – wrapped once in the provider */}
+    {/* wizard pages – wrapped in provider AND protected */}
     <Route element={
-        <ListingDraftProvider>
-          <Outlet />
-        </ListingDraftProvider>
+        <PrivateRoute>
+          <ListingDraftProvider>
+            <Outlet />
+          </ListingDraftProvider>
+        </PrivateRoute>
     }>
       <Route path="/listing-flow"                    element={<ListingFlowIntro />} />
       <Route path="/listing-flow/step-1/1_proptype"  element={<PropType />} />

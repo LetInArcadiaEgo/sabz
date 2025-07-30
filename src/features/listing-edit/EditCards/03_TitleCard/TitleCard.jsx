@@ -5,58 +5,64 @@ import styles from './TitleCard.module.css';
 
 const MAX_CHARS = 50;
 
-const TitleCard = ({
-  title,
-  isModalOpen,
-  onModalOpen,
-  onModalClose,
-  onSave,
-  tempTitle,
-  onTitleChange
-}) => {
+const TitleForm = ({ value, onChange }) => {
   const [isEditing, setIsEditing] = useState(false);
   const inputRef = useRef(null);
 
-  // Start editing mode when modal opens
   useEffect(() => {
-    if (isModalOpen) {
-      setIsEditing(true);
-      // place caret at end of text once input is rendered
-      setTimeout(() => {
-        if (inputRef.current) {
-          const len = (tempTitle || title || '').length;
-          inputRef.current.setSelectionRange(len, len);
-        }
-      }, 0);
-    } else {
-      setIsEditing(false);
-    }
-  }, [isModalOpen]);
+    setIsEditing(true);
+    setTimeout(() => {
+      if (inputRef.current) {
+        const len = (value || '').length;
+        inputRef.current.setSelectionRange(len, len);
+      }
+    }, 0);
+  }, []);
 
   const handleInputBlur = () => {
-    // Don't stop editing mode on blur while modal is open
-    if (!isModalOpen) {
-      setIsEditing(false);
-    }
-  };
-
-  const handleModalClose = () => {
-    // Save changes before closing
-    if (tempTitle) {
-      onSave('title', tempTitle);
-    }
-    onModalClose();
+    setIsEditing(false);
   };
 
   const handleTitleChange = (e) => {
     const newValue = e.target.value;
     if (newValue.length <= MAX_CHARS) {
-      onTitleChange(newValue);
+      onChange(newValue);
     }
   };
 
-  const currentLength = (tempTitle || title || '').length;
+  const currentLength = (value || '').length;
 
+  return (
+    <div className={styles.titleContainer}>
+      <div className={styles.characterCount}>
+        {currentLength}/{MAX_CHARS} available
+      </div>
+      <div className={styles.titleWrapper}>
+        <div className={styles.inputContainer}>
+          <input
+            type="text"
+            value={value || ''}
+            onChange={handleTitleChange}
+            onBlur={handleInputBlur}
+            autoFocus
+            placeholder="Enter listing title"
+            className={styles.titleInput}
+            maxLength={MAX_CHARS}
+            ref={inputRef}
+          />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const TitleCard = ({
+  title,
+  isModalOpen,
+  onModalOpen,
+  onModalClose,
+  onSave
+}) => {
   return (
     <>
       <EditCard
@@ -67,31 +73,12 @@ const TitleCard = ({
 
       <EditModal
         isOpen={isModalOpen}
-        onClose={handleModalClose}
-        onSave={() => onSave('title', tempTitle || title)}
+        onClose={onModalClose}
+        onSave={(tempData) => onSave('title', tempData)}
         title="Title"
         initialData={title}
       >
-        <div className={styles.titleContainer}>
-          <div className={styles.characterCount}>
-            {currentLength}/{MAX_CHARS} available
-          </div>
-          <div className={styles.titleWrapper}>
-            <div className={styles.inputContainer}>
-              <input
-                type="text"
-                value={tempTitle || title}
-                onChange={handleTitleChange}
-                onBlur={handleInputBlur}
-                autoFocus
-                placeholder="Enter listing title"
-                className={styles.titleInput}
-                maxLength={MAX_CHARS}
-                ref={inputRef}
-              />
-            </div>
-          </div>
-        </div>
+        <TitleForm />
       </EditModal>
     </>
   );

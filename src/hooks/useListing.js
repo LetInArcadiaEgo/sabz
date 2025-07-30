@@ -1,27 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { fetchListing } from '../api';
+import { normalizeListing } from '../models/Listing';
 
 export function useListing(id) {
-  const [listing, setListing] = useState(null);
-  const [loading, setLoading] = useState(Boolean(id));
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    if (!id) return;
-
-    const load = async () => {
-      try {
-        const data = await fetchListing(id);
-        setListing(data);
-      } catch (err) {
-        setError(err.message || 'Failed to fetch listing');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    load();
-  }, [id]);
-
-  return { listing, loading, error };
+  return useQuery({
+    queryKey: ['listing', id],
+    enabled: !!id,
+    queryFn: async () => normalizeListing(await fetchListing(id)),
+  });
 } 

@@ -1,0 +1,345 @@
+.container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.modal {
+  background: white;
+  border-radius: 12px;
+  max-width: 568px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+}
+
+.header {
+  padding: 24px 24px 0;
+  border-bottom: 1px solid #ebebeb;
+  margin-bottom: 32px; /* Increased margin to push title down 5% */
+}
+
+.title {
+  font-size: 15px; /* Made 5% smaller (was 16px) */
+  font-weight: 600;
+  text-align: center;
+  margin: 0;
+  padding-bottom: 24px;
+  color: #222;
+  letter-spacing: -0.02em; /* Added letter spacing */
+}
+
+.content {
+  padding: 0 24px 24px;
+}
+
+.welcome {
+  /* Use global header styling and left-align with email box */
+  font-size: 32px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 24px 0;
+  text-align: left;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.input {
+  border: 1px solid #b0b0b0;
+  border-radius: 8px;
+  padding: 14px 12px;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.2s;
+  background: white;
+}
+
+.input:focus {
+  border-color: #222;
+  box-shadow: 0 0 0 2px rgba(34, 34, 34, 0.1);
+}
+
+.input::placeholder {
+  color: #717171;
+}
+
+.inputError {
+  color: #c13515;
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+.continueButton {
+  /* Changed to Sabz green gradient */
+  background: linear-gradient(135deg, #1fb850 0%, #18a445 100%);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 14px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  margin-top: 8px;
+}
+
+.continueButton:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+.continueButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  margin: 24px 0;
+  font-size: 12px;
+  color: #717171;
+  text-transform: uppercase;
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: #ebebeb;
+}
+
+.divider span {
+  padding: 0 16px;
+}
+
+.authOptions {
+  text-align: center;
+  margin-bottom: 24px; /* Increased margin to create more space from button */
+  margin-top: 20px; /* Added top margin to create more space from button above */
+}
+
+.switchText {
+  color: #222;
+  font-size: 14px;
+  margin: 0;
+}
+
+.switchLink {
+  color: #222;
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+.switchLink:hover {
+  color: #00b550; /* Changed to Sabz green */
+}
+
+.help {
+  text-align: center;
+}
+
+.helpLink {
+  color: #222;
+  text-decoration: underline;
+  font-size: 14px;
+}
+
+.helpLink:hover {
+  color: #00b550; /* Changed to Sabz green */
+}
+
+.error {
+  background: #fff8f6;
+  border: 1px solid #f7c6c7;
+  border-radius: 8px;
+  padding: 12px;
+  color: #c13515;
+  font-size: 14px;
+}
+
+.success {
+  background: #f0f9f4;
+  border: 1px solid #c6e6d1;
+  border-radius: 8px;
+  padding: 12px;
+  color: #0f5132;
+  font-size: 14px;
+}
+
+/* Success Modal Styles - Matching Edit Listing Pattern */
+.successModalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.successModalOverlay.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.successModal {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: white;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.16), 0 -2px 8px rgba(0, 0, 0, 0.08);
+  transform: translateY(100%);
+  transition: transform 0.3s ease-out;
+  z-index: 1000;
+}
+
+.successModal.open {
+  transform: translateY(0);
+}
+
+.modalHeader {
+  position: relative;
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.modalTitle {
+  font-size: 28px;
+  font-weight: 600;
+  color: #222222;
+  margin: 0;
+  padding: 0 40px; /* Add padding to avoid close button overlap */
+}
+
+.closeButton {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: none;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  color: #222222;
+  font-size: 24px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.closeButton:hover {
+  background-color: #f5f5f5;
+}
+
+.successContent {
+  text-align: center;
+  padding: 0 16px; /* Add some horizontal padding */
+}
+
+.successContent p {
+  font-size: 18px;
+  color: #666;
+  margin: 0 0 40px 0;
+  line-height: 1.5;
+  max-width: 400px; /* Limit width for better readability */
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 40px;
+}
+
+.progressContainer {
+  margin-top: 24px;
+}
+
+.progressBar {
+  width: 100%;
+  height: 8px;
+  background-color: #f0f0f0;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+
+.progressFill {
+  height: 100%;
+  background: linear-gradient(135deg, #1fb850 0%, #18a445 100%);
+  border-radius: 4px;
+  transition: width 0.1s ease;
+}
+
+.redirectText {
+  font-size: 14px;
+  color: #666;
+  margin: 0;
+}
+
+/* Mobile responsiveness for success modal */
+@media (max-width: 768px) {
+  .container {
+    padding: 0;
+    align-items: flex-start;
+  }
+  
+  .modal {
+    border-radius: 0;
+    max-height: 100vh;
+    height: 100vh;
+    max-width: none;
+  }
+  
+  .header {
+    padding: 16px 16px 0;
+  }
+  
+  .content {
+    padding: 0 16px 16px;
+  }
+
+  .successModalOverlay {
+    padding: 16px;
+  }
+  
+  .successModal {
+    padding: 24px 20px;
+  }
+  
+  .modalTitle {
+    font-size: 22px;
+  }
+  
+  .successContent p {
+    font-size: 15px;
+    margin: 0 0 28px 0;
+  }
+
+  .closeButton {
+    font-size: 20px;
+  }
+} 

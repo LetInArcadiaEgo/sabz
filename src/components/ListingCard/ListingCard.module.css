@@ -64,3 +64,55 @@
 .details {
   line-height: 1.6;
 }
+
+/* Bookmark button */
+.bookmarkButton {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  z-index: 2;
+}
+
+.bookmarkButton:hover {
+  background: white;
+  transform: scale(1.1);
+}
+
+.bookmarkButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.bookmarkEmpty,
+.bookmarkFilled,
+.bookmarkLoading {
+  font-size: 18px;
+  line-height: 1;
+}
+
+.bookmarkEmpty {
+  opacity: 0.7;
+}
+
+.bookmarkFilled {
+  opacity: 1;
+}
+
+.bookmarkLoading {
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}

@@ -2,8 +2,9 @@
 
 .navbar {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
   padding: 0rem 2rem;
   background-color: #ffffff;
 }
@@ -32,4 +33,80 @@
   text-align: left;
   line-height: 1;
   letter-spacing: -0.03em;
+}
+
+/* Auth Actions */
+.navbarActions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.loading {
+  color: #717171;
+  font-size: 14px;
+}
+
+.userMenu {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.userEmail {
+  color: #222;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.logoutButton {
+  background: transparent;
+  border: 1px solid #222;
+  border-radius: 20px;
+  color: #222;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.logoutButton:hover {
+  background: #222;
+  color: white;
+}
+
+.authLinks {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.authLink {
+  color: #222;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 8px 16px;
+  border-radius: 20px;
+  transition: background-color 0.2s;
+}
+
+.authLink:hover {
+  background: #f7f7f7;
+}
+
+.authLinkPrimary {
+  background: #222;
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 8px 16px;
+  border-radius: 20px;
+  transition: background-color 0.2s;
+}
+
+.authLinkPrimary:hover {
+  background: #484848;
 } 

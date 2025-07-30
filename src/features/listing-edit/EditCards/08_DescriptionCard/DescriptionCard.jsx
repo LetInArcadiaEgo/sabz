@@ -5,82 +5,78 @@ import styles from './DescriptionCard.module.css';
 
 const MAX_CHARS = 500;
 
-const DescriptionCard = ({
-  description,
-  isModalOpen,
-  onModalOpen,
-  onModalClose,
-  onSave,
-  tempDescription,
-  onDescriptionChange
-}) => {
+const DescriptionForm = ({ value, onChange }) => {
   const [isEditing, setIsEditing] = useState(false);
   const textareaRef = useRef(null);
 
-  // Trigger editing mode when modal opens
   useEffect(() => {
-    setIsEditing(isModalOpen);
-    // Place cursor at end when modal opens
-    if (isModalOpen) {
-      setTimeout(() => {
-        if (textareaRef.current) {
-          const len = (tempDescription || description || '').length;
-          textareaRef.current.setSelectionRange(len, len);
-        }
-      }, 0);
-    }
-  }, [isModalOpen]);
+    setIsEditing(true);
+    setTimeout(() => {
+      if (textareaRef.current) {
+        const len = (value || '').length;
+        textareaRef.current.setSelectionRange(len, len);
+      }
+    }, 0);
+  }, []);
 
   const handleTextareaBlur = () => {
-    if (!isModalOpen) setIsEditing(false);
-  };
-
-  const handleModalClose = () => {
-    // Save changes before closing
-    if (typeof tempDescription === 'string') {
-      onSave('description', tempDescription);
-    }
-    onModalClose();
+    setIsEditing(false);
   };
 
   const handleDescriptionChange = (e) => {
     const newValue = e.target.value;
     if (newValue.length <= MAX_CHARS) {
-      onDescriptionChange(newValue);
+      onChange(newValue);
     }
   };
 
-  const currentLength = (tempDescription || description || '').length;
+  const currentLength = (value || '').length;
+
+  return (
+    <div className={styles.descriptionContainer}>
+      <div className={styles.characterCount}>
+        {currentLength}/{MAX_CHARS} characters
+      </div>
+      <textarea
+        value={value || ''}
+        onChange={handleDescriptionChange}
+        onBlur={handleTextareaBlur}
+        autoFocus
+        placeholder="Describe your property in detail..."
+        className={styles.textarea}
+        maxLength={MAX_CHARS}
+        ref={textareaRef}
+        rows={8}
+      />
+    </div>
+  );
+};
+
+const DescriptionCard = ({
+  description,
+  isModalOpen,
+  onModalOpen,
+  onModalClose,
+  onSave
+}) => {
+  const displayText = description || 'Add description';
 
   return (
     <>
       <EditCard
         title="Description"
-        content={description ? `${description.slice(0, 60)}${description.length > 60 ? '…' : ''}` : ''}
+        content={displayText}
         onClick={onModalOpen}
       />
 
       <EditModal
         isOpen={isModalOpen}
-        onClose={handleModalClose}
-        onSave={() => onSave('description', tempDescription || description)}
+        onClose={onModalClose}
+        onSave={(tempData) => onSave('description', tempData)}
         title="Description"
         initialData={description}
       >
-        <div className={styles.descriptionContainer}>
-          <div className={styles.characterCount}>{currentLength}/{MAX_CHARS} characters</div>
-          <textarea
-            className={styles.textarea}
-            value={tempDescription || description}
-            onChange={handleDescriptionChange}
-            onBlur={handleTextareaBlur}
-            placeholder="Write a detailed description of your property"
-            maxLength={MAX_CHARS}
-            rows={6}
-            autoFocus
-            ref={textareaRef}
-          />
-        </div>
+        <DescriptionForm />
       </EditModal>
     </>
   );

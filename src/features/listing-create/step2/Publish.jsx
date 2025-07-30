@@ -19,13 +19,14 @@ const Publish = () => {
   const handlePublish = async () => {
     try {
       setSubmitting(true);
+      
       await createListing(draft);
       alert('Submitted!  Listing will appear once approved.');
       navigate('/listing-flow/success');
     } catch (err) {
       // eslint-disable-next-line no-console
-      console.error(err);
-      alert('Sorry, something went wrong. Please try again.');
+      console.error('Publish error:', err);
+      alert(`Sorry, something went wrong: ${err.message || err}. Please try again.`);
     } finally {
       setSubmitting(false);
     }

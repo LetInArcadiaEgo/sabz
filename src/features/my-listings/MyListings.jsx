@@ -1,18 +1,57 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './MyListings.module.css';
 import ListingMainInfo from '../../pages/listing/components/ListingMainInfo/ListingMainInfo';
 import ListingFeatures from '../../pages/listing/components/ListingFeatures/ListingFeatures';
 import { FiEdit2, FiEye } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 import ShareButton from '../../components/common/Button/ShareButton';
-import { useApprovedListings } from '../../hooks/useApprovedListings';
+import { useAuth } from '../../context/AuthContext';
 import { formatSquareFootage, formatLocationDetails } from '../../utils/listingUtils';
+import ExitButton from '../../components/common/Button/ExitButton';
+
+const API_BASE_URL = process.env.REACT_APP_API_BASE || 'http://localhost:3001';
 
 const MyListings = () => {
   const navigate = useNavigate();
+  const { user, loading: authLoading, getToken, signOut } = useAuth();
+  const [myListings, setMyListings] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-  // Fetch all approved listings (Phase 1)
-  const { listings, loading, error } = useApprovedListings();
+  // Fetch user's listings from dedicated endpoint
+  useEffect(() => {
+    const fetchMyListings = async () => {
+      if (!user) return;
+      
+      setLoading(true);
+      setError(null);
+      
+      try {
+        const token = getToken();
+        const response = await fetch(`${API_BASE_URL}/api/me/listings`, {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          }
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+          setMyListings(data.data || []);
+        } else {
+          setError(data.error || 'Failed to fetch listings');
+        }
+      } catch (err) {
+        setError('Failed to fetch listings');
+        console.error('Error fetching user listings:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchMyListings();
+  }, [user, getToken]);
 
   const handleEdit = (e, listing) => {
     e.stopPropagation(); // Prevent card click
@@ -28,7 +67,24 @@ const MyListings = () => {
     navigate(`/my-listings/edit/${listing.id}`);
   };
 
-  if (loading) {
+  const handleLogout = async () => {
+    await signOut();
+    navigate('/');
+  };
+
+  // Show login message if user is not authenticated
+  if (!authLoading && !user) {
+    return (
+      <div className={styles.container}>
+        <div className={styles.header}>
+          <h1 className="page-title">My Listings</h1>
+          <p className="page-subtitle">Please log in to view your listings</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (authLoading || loading) {
     return (
       <div className={styles.container}>
         <p>Loading listings…</p>
@@ -46,16 +102,21 @@ const MyListings = () => {
 
   return (
     <div className={styles.container}>
+      <ExitButton />
+      <button className={styles.logoutButton} onClick={handleLogout}>
+        Log out
+      </button>
+
       <div className={styles.header}>
-        <h1 className={styles.title}>My Listings</h1>
-        <p className={styles.subtitle}>Manage your property listings</p>
+        <h1 className="page-title">My Listings</h1>
+        <p className="page-subtitle">Manage your property listings</p>
       </div>
 
       <div className={styles.content}>
-        {listings.map((listing) => {
-          const squareFootage   = formatSquareFootage(
-            listing.totalArea ?? listing.total_area,
-            listing.areaUnit  ?? listing.area_unit
+        {myListings.map((listing) => {
+          const squareFootage = formatSquareFootage(
+            listing.total_area,
+            listing.area_unit
           );
           const locationDetails = formatLocationDetails(listing);
 
@@ -117,9 +178,15 @@ const MyListings = () => {
           );
         })}
 
-        {listings.length === 0 && !loading && !error && (
+        {myListings.length === 0 && !loading && !error && user && (
           <div className={styles.emptyState}>
             <p>You haven't posted any listings yet.</p>
+            <button 
+              onClick={() => navigate('/create-listing')}
+              className={styles.createButton}
+            >
+              Create Your First Listing
+            </button>
           </div>
         )}
       </div>

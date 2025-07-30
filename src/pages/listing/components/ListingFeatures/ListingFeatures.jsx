@@ -5,10 +5,12 @@ import styles from './ListingFeatures.module.css';
 const ListingFeatures = ({ squareFootage, bedrooms, bathrooms }) => {
   return (
     <div className={styles.mainFeatures}>
-      <div className={styles.feature}>
-        <FaRulerCombined />
-        <span>{squareFootage}</span>
-      </div>
+      {squareFootage && (
+        <div className={styles.feature}>
+          <FaRulerCombined />
+          <span>{squareFootage}</span>
+        </div>
+      )}
       <div className={styles.feature}>
         <FaBed />
         <span>{bedrooms} Bedrooms</span>

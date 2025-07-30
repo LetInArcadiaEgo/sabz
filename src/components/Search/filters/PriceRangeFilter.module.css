@@ -1,0 +1,129 @@
+.container {
+  width: 100%;
+}
+
+.presetGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.presetButton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem 0.75rem;
+  border: 2px solid #e5e5e5;
+  border-radius: 12px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-height: 70px;
+  text-align: center;
+}
+
+.presetButton:hover {
+  border-color: #4CAF50;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.presetButton.selected {
+  border-color: #4CAF50;
+  background: #f8fff8;
+  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.2);
+}
+
+.priceLabel {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 0.25rem;
+}
+
+.presetButton.selected .priceLabel {
+  color: #4CAF50;
+}
+
+.priceRange {
+  font-size: 0.85rem;
+  color: #666;
+  line-height: 1.2;
+}
+
+.presetButton.selected .priceRange {
+  color: #4CAF50;
+}
+
+/* Custom range styles */
+.customRange {
+  display: flex;
+  align-items: end;
+  gap: 1rem;
+  padding: 1rem;
+  background: #f8f8f8;
+  border-radius: 12px;
+  margin-top: 1rem;
+}
+
+.inputGroup {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.inputLabel {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #666;
+  margin-bottom: 0.5rem;
+}
+
+.priceInput {
+  padding: 0.75rem;
+  border: 2px solid #e5e5e5;
+  border-radius: 8px;
+  font-size: 1rem;
+  background: white;
+  transition: border-color 0.2s ease;
+}
+
+.priceInput:focus {
+  outline: none;
+  border-color: #4CAF50;
+}
+
+.inputSeparator {
+  font-size: 0.875rem;
+  color: #666;
+  font-weight: 500;
+  margin: 0 0.5rem;
+  padding-bottom: 0.75rem;
+}
+
+/* Responsive adjustments */
+@media (min-width: 480px) {
+  .presetGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 768px) {
+  .presetGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .presetButton {
+    padding: 1.25rem 1rem;
+    min-height: 80px;
+  }
+  
+  .priceLabel {
+    font-size: 1.1rem;
+  }
+  
+  .priceRange {
+    font-size: 0.9rem;
+  }
+}

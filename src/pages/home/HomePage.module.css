@@ -4,11 +4,58 @@
   margin: 0 auto;
 }
 
+.searchStatus {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background: #f8fff8;
+  border-radius: 12px;
+  border: 1px solid #e8f5e8;
+}
+
+.resultCount {
+  color: #4CAF50;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
 .listingsContainer {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 2rem;
   margin-top: 2rem;
+}
+
+/* No results states */
+.noResults,
+.noListings {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px;
+  text-align: center;
+}
+
+.noResultsContent,
+.noListingsContent {
+  max-width: 400px;
+  padding: 2rem;
+}
+
+.noResultsContent h3,
+.noListingsContent h3 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.noResultsContent p,
+.noListingsContent p {
+  color: #666;
+  font-size: 1rem;
+  line-height: 1.5;
+  margin: 0;
 }
 
 @media (max-width: 768px) {
@@ -18,5 +65,34 @@
   
   .listingsContainer {
     grid-template-columns: 1fr;
+  }
+
+  .searchStatus {
+    margin-top: 1rem;
+    padding: 0.75rem;
+  }
+
+  .resultCount {
+    font-size: 0.9rem;
+  }
+
+  .noResults,
+  .noListings {
+    min-height: 200px;
+  }
+
+  .noResultsContent,
+  .noListingsContent {
+    padding: 1.5rem;
+  }
+
+  .noResultsContent h3,
+  .noListingsContent h3 {
+    font-size: 1.25rem;
+  }
+
+  .noResultsContent p,
+  .noListingsContent p {
+    font-size: 0.9rem;
   }
 } 

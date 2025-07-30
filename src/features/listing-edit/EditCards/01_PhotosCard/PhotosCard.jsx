@@ -3,34 +3,38 @@ import EditCard from '../EditCard';
 import EditModal from '../../../../components/common/EditModal/EditModal';
 import PhotoManager from '../../../../components/common/PhotoManager/PhotoManager';
 
+const PhotosForm = ({ value, onChange }) => {
+  return (
+    <PhotoManager
+      photos={value || []}
+      onPhotosChange={onChange}
+    />
+  );
+};
+
 const PhotosCard = ({ 
   photos, 
   isModalOpen, 
   onModalOpen, 
   onModalClose, 
-  onSave, 
-  tempPhotos,
-  onPhotosChange 
+  onSave
 }) => {
   return (
     <>
       <EditCard
         title="Photos"
-        content={`${photos.length} photos`}
+        content={`${photos?.length || 0} photos`}
         onClick={onModalOpen}
       />
 
       <EditModal
         isOpen={isModalOpen}
         onClose={onModalClose}
-        onSave={() => onSave('photos', tempPhotos || photos)}
+        onSave={(tempData) => onSave('photos', tempData)}
         title="Photos"
         initialData={photos}
       >
-        <PhotoManager
-          photos={tempPhotos || photos}
-          onPhotosChange={onPhotosChange}
-        />
+        <PhotosForm />
       </EditModal>
     </>
   );

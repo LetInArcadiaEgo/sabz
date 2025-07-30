@@ -3,6 +3,11 @@
 export function formatPrice(price, { currency = 'PKR' } = {}) {
   if (price == null) return '';
 
+  // Handle normalized price object format {base: number, weeklyDiscount: number, monthlyDiscount: number}
+  const priceValue = typeof price === 'object' && price.base ? price.base : price;
+  
+  if (priceValue == null || typeof priceValue !== 'number') return '';
+
   // 1 Crore = 10,000,000 PKR
   const CRORE = 1e7;
   const LAKH  = 1e5;
@@ -14,20 +19,20 @@ export function formatPrice(price, { currency = 'PKR' } = {}) {
   };
 
   // ≥ 1 Crore ➜ show Crore units
-  if (price >= CRORE) {
-    const value = price / CRORE; // e.g. 30,000,000 → 3
+  if (priceValue >= CRORE) {
+    const value = priceValue / CRORE; // e.g. 30,000,000 → 3
     return `${currency} ${fmt(value)} Crore`;
   }
 
   // 1 Lakh ≤ price < 1 Crore ➜ show Lakh units
-  if (price >= LAKH) {
-    const value = price / LAKH; // e.g. 200,000 → 2
+  if (priceValue >= LAKH) {
+    const value = priceValue / LAKH; // e.g. 200,000 → 2
     const suffix = Number.isInteger(value) ? 'lakh' : 'lakhs';
     return `${currency} ${fmt(value)} ${suffix}`;
   }
 
   // < 1 Lakh ➜ still represent in Lakhs with decimal (rare case but handled)
-  const value = price / LAKH; // will be < 1
+  const value = priceValue / LAKH; // will be < 1
   return `${currency} ${fmt(value)} lakhs`;
 }
 

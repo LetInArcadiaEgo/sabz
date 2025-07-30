@@ -1,30 +1,12 @@
 import { createContext, useContext, useState } from 'react';
+import { LISTING_DEFAULTS, normalizeListing } from '../models/Listing';
 
 const ListingDraftContext = createContext();
 
-export function ListingDraftProvider({ children }) {
-  const [draft, setDraft] = useState({
-
-    title:        '',
-    description:  '',
-    propertyType: '',
-    bedrooms:     1,
-    bathrooms:    1,
-    totalArea:    '',
-    areaUnit:     'Sq Ft',
-    price:        '',    
-
-    // Backend expects a nested address object ----------------------------
-    address: {
-      city:          '',
-      state:         '',
-      streetAddress: '',
-      aptFloorBldg:  '',
-      postalCode:    ''
-    },
-
-    images:       [],    // files selected in Step-2 / Photos
-  });
+export function ListingDraftProvider({ children, initialDraft = null }) {
+  const [draft, setDraft] = useState(
+    initialDraft ? normalizeListing(initialDraft) : { ...LISTING_DEFAULTS }
+  );
 
   return (
     <ListingDraftContext.Provider value={{ draft, setDraft }}>
