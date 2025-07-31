@@ -9,20 +9,20 @@ export const validateSecurity = () => {
   };
 
   // Check 1: Environment variables
-  const supabaseUrl = process.env.REACT_APP_SUPABASE_URL;
-  const supabaseKey = process.env.REACT_APP_SUPABASE_ANON_KEY;
-  const apiBase = process.env.REACT_APP_API_BASE;
+  const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+  const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+  const apiBase = import.meta.env.VITE_API_BASE;
 
   if (supabaseUrl && supabaseUrl.includes('supabase.co')) {
-    results.passed.push('✅ REACT_APP_SUPABASE_URL is set');
+    results.passed.push('✅ VITE_SUPABASE_URL is set');
   } else {
-    results.failed.push('❌ REACT_APP_SUPABASE_URL missing or invalid');
+    results.failed.push('❌ VITE_SUPABASE_URL missing or invalid');
   }
 
   if (supabaseKey && supabaseKey.startsWith('eyJ')) {
-    results.passed.push('✅ REACT_APP_SUPABASE_ANON_KEY is set (anon key format)');
+    results.passed.push('✅ VITE_SUPABASE_ANON_KEY is set (anon key format)');
   } else {
-    results.failed.push('❌ REACT_APP_SUPABASE_ANON_KEY missing or invalid format');
+    results.failed.push('❌ VITE_SUPABASE_ANON_KEY missing or invalid format');
   }
 
   if (apiBase) {

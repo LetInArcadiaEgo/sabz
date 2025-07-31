@@ -9,7 +9,7 @@ import { useAuth } from '../../context/AuthContext';
 import { formatSquareFootage, formatLocationDetails } from '../../utils/listingUtils';
 import ExitButton from '../../components/common/Button/ExitButton';
 
-const API_BASE_URL = process.env.REACT_APP_API_BASE || 'http://localhost:3001';
+const API_BASE_URL = import.meta.env.VITE_API_BASE || 'http://localhost:3001';
 
 const MyListings = () => {
   const navigate = useNavigate();

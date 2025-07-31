@@ -117,7 +117,7 @@ export const runAutomatedChecks = () => {
   results.push(`✅ Auth paths available: ${authPaths.join(', ')}`);
 
   // Check 4: API configuration
-  const apiBase = process.env.REACT_APP_API_BASE;
+  const apiBase = import.meta.env.VITE_API_BASE;
   if (apiBase) {
     results.push(`✅ API endpoint configured: ${apiBase}`);
   } else {

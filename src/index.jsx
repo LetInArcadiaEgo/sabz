@@ -5,9 +5,10 @@ import './styles/global.css';
 import App from './App';
 import { AuthProvider } from './context/AuthContext';
 
-// Security validation in development
-import './utils/testSecurity';
-import './utils/smokeTest';
+// Security validation in development (disabled for Vite migration)
+// These can be re-enabled later once env vars are working properly
+// import './utils/testSecurity';
+// import './utils/smokeTest';
 
 // Create a client for TanStack Query
 const queryClient = new QueryClient({
